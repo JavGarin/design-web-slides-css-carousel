@@ -17,7 +17,7 @@ const products = [
         figcaption: "Strawberry Pink, a new product"
     },
     {
-        title: "Strong Energy, Flavor Inferno",
+        title: "Ferno Energy, Flavor intense",
         price: "$ 12 usd",
         description: "Strong Energy: Tu Combustible Definitivo. Potencia concentrada para tu pre-entreno. Fórmula con cafeína, beta-alanina y aminoácidos que dispara tu energía, enfoque y resistencia desde el primer sorbo. Domina cada serie. Retrasa la fatiga. Supera tus límites. La chispa que enciende tu fuerza. #StrongEnergy",
         image: "images/energy-strong.avif",
@@ -140,4 +140,11 @@ function startCarousel() {
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     startCarousel();
+
+    // Hamburger menu functionality
+    const hamburger = document.querySelector('.hamburger-menu');
+    const header = document.querySelector('header');
+    hamburger.addEventListener('click', () => {
+        header.classList.toggle('nav-active');
+    });
 });

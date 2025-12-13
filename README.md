@@ -2,6 +2,10 @@
 
 This project is a visually appealing, interactive product carousel for a fictional energy drink store. The main goal is to showcase products in a modern and dynamic way, creating an engaging user experience.
 
+## Screenshot
+
+![Website Screenshot](images/screenshot-energy-store.png)
+
 ## Development & Technology
 
 This website was developed using pure front-end technologies, with no reliance on external frameworks or libraries.
@@ -27,6 +31,3 @@ The design aims to be modern, immersive, and bold, reflecting the "energetic" na
 
 JavGarin
 
-## Screenshot
-
-![Website Screenshot](images/screenshot-energy-store.png)

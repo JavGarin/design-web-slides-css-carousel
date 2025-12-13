@@ -51,6 +51,9 @@ header nav ul{
 header nav{
     border-left: 1px solid var(--border-color);
 }
+.hamburger-menu{
+    display: none; /* Oculto por defecto */
+}
 .carousel{
     margin-top: -80px;
     width: 100%;
@@ -148,6 +151,12 @@ header nav{
     border: none;
     margin-top: 20px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel .list .item .main-content .content .addToCard:hover {
+    background-color: #4CAF50; /* Un verde un poco más claro o diferente */
+    transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
 }
 .arrows{
     position: absolute;
@@ -265,21 +274,138 @@ header nav{
     }
 }
 @media screen and (max-width: 767px){
+    header{
+        grid-template-columns: auto 1fr;
+        padding: 0 20px;
+    }
+    header .logo{
+        justify-content: start;
+    }
+    header nav{
+        display: block;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(79, 139, 105, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: left 0.3s ease;
+        z-index: 11;
+    }
+    header nav ul{
+        flex-direction: column;
+        gap: 40px;
+    }
+    header nav a{
+        color: #fff;
+        font-size: 2em;
+    }
+    /* Estilos para el menú de hamburguesa */
+    .hamburger-menu{
+        display: block;
+        width: 30px;
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+        z-index: 12;
+        place-self: center end;
+        background: none;
+        border: none;
+    }
+    .hamburger-menu span{
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #000;
+        position: absolute;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger-menu span:nth-child(1){
+        top: 0;
+    }
+    .hamburger-menu span:nth-child(2){
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .hamburger-menu span:nth-child(3){
+        bottom: 0;
+    }
+    /* Funcionalidad del menú (requiere JS) */
+    /* Añadir la clase 'nav-active' al header para abrir el menú */
+    header.nav-active .main-nav{
+        left: 0;
+    }
+    header.nav-active .hamburger-menu span:nth-child(1){
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    header.nav-active .hamburger-menu span:nth-child(2){
+        opacity: 0;
+    }
+    header.nav-active .hamburger-menu span:nth-child(3){
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    header.nav-active .hamburger-menu span{
+        background-color: #fff;
+    }
+
     .carousel .list .item .image{
         width: 100%;
+        height: 60vh; /* Sube la imagen para que se vea más */
         left: 0;
+        top: -80px; /* Sube la imagen para que se vea más */
         justify-content: center;
+    }
+    .carousel .list .item .image img{
+        width: 80%;
     }
     .carousel .list .item .image figcaption{
         color: #fff;
         width: 100%;
         text-align: center;
+        background: linear-gradient(to top, #4f8b69, transparent);
+        padding: 40px 0 20px;
+        margin-bottom: 0;
+    }
+    .carousel .list .item .main-content{
+        height: auto;
+        grid-template-columns: 1fr;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 20px;
+        color: #fff;
+        background-color: #4f8b69;
+        text-align: center;
     }
     .carousel .list .item .main-content .content{
-        display: none;
+        display: block;
+        padding: 0;
+    }
+    .carousel .list .item .main-content .content h2{
+        font-size: 2.5em;
+    }
+    .carousel .list .item .main-content .content .price{
+        font-size: 2em;
     }
     .arrows{
         left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
         justify-content: center;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 480px) {
+    .carousel .list .item .main-content .content h2 {
+        font-size: 2em;
+    }
+    .carousel .list .item .main-content .content .price {
+        font-size: 1.5em;
+    }
+    header .logo img{
+        width: 80px;
     }
 }
