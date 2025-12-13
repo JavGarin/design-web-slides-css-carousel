@@ -20,19 +20,21 @@ body{
 }
 header{
     display: grid;
-    grid-template-columns: 80px 1fr calc(var(--w-image) * var(--calculate));
+    grid-template-columns: 120px 1fr calc(var(--w-image) * var(--calculate));
     grid-template-rows: 80px;
     position: relative;
     z-index: 10;
     border-bottom: 1px solid var(--border-color);
 }
 header .logo img{
-    width: 120%;
+    width: 100px;
+    height: auto;
 }
 header .logo{
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 header nav a{
     color: #000;
