@@ -4,31 +4,31 @@ const products = [
         title: "Juice Punch, Flavor Coffee",
         price: "$ 10 USD",
         description: "Juice Punch, Sabor Café. El Golpe Doble. Despierta con el intenso aroma del café y ataca con la explosión frutal del punch. La fusión definitiva: la energía profunda de tu café favorito potenciada con la vitalidad eléctrica de las frutas. Doble combustible para un día imparable. La energía que despierta y acelera. #JuicePunch #CoffeePunch #DobleEnergía",
-        image: "images/juice-punch.avif",
+        image: "images/juice-punch.png",
         bgColor: "#9c4d2f",
         figcaption: "Juice Punch, a new product"
     },
     {
-        title: "Lemonade Pink, Flavor Sweet",
+        title: "Berry Pink, Flavor Sweet",
         price: "$ 15 usd",
-        description: "Strawberry Pink: Energía Dulce y Vibrante. Más que una bebida, es una experiencia rosa. El dulce y vibrante sabor a fresa silvestre que te da el impulso de energía que buscas, envuelto en una frescura irresistible. Perfecta para endulzar tu ritmo y brillar con tu propia luz. Dulce energía. Vibrante actitud. #StrawberryPink #SweetEnergy #BrillaComoTú",
-        image: "images/energy-pink.avif",
+        description: "Berry Pink: Energía Dulce y Vibrante. Más que una bebida, es una experiencia rosa. El dulce y vibrante sabor a fresa silvestre que te da el impulso de energía que buscas, envuelto en una frescura irresistible. Perfecta para endulzar tu ritmo y brillar con tu propia luz. Dulce energía. Vibrante actitud. #StrawberryPink #SweetEnergy #BrillaComoTú",
+        image: "images/energy-pink.png",
         bgColor: "#f5bfaf",
-        figcaption: "Strawberry Pink, a new product"
+        figcaption: "Berry Pink, a new product"
     },
     {
         title: "Ferno Energy, Flavor intense",
         price: "$ 12 usd",
         description: "Strong Energy: Tu Combustible Definitivo. Potencia concentrada para tu pre-entreno. Fórmula con cafeína, beta-alanina y aminoácidos que dispara tu energía, enfoque y resistencia desde el primer sorbo. Domina cada serie. Retrasa la fatiga. Supera tus límites. La chispa que enciende tu fuerza. #StrongEnergy",
-        image: "images/energy-strong.avif",
-        bgColor: "#972437",
+        image: "images/energy-strong.png",
+        bgColor: "#c62f17ff",
         figcaption: "Strong Energy, a new product"
     },
     {
         title: "Energy Hulk, Flavor acid",
         price: "$ 11 USD",
         description: "Energy Hulk, Sabor Limonada. ¡Fuerza Irrompible! La energía más poderosa se viste de verde y sabe a limonada explosiva. Una fórmula extrema que carga tus músculos con fuerza bruta y una claridad mental de acero. Para los que no conocen límites. Potencia extrema. Sabor invencible. #EnergyHulkPlus #FuerzaBruta #SomosHulk",
-        image: "images/energy-hulk.avif",
+        image: "images/energy-hulk.png",
         bgColor: "#7eb63d",
         figcaption: "Energy Hulk, a new product"
     }
