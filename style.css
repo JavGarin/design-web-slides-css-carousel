@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Montserrat:wght@100..900&family=Pacifico&family=Roboto:wght@100;300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-html, body{
-    overflow: hidden;
+html {
+    overflow-x: hidden; /* Allow horizontal scrolling if needed, but not vertical */
 }
 
 body{
+    overflow: hidden; /* Keep hidden by default, will be overridden by media query for mobile */
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     font-size: 16px;
@@ -20,6 +21,41 @@ body{
     --border-color: rgba(255, 255, 255, 0);
     --w-image: 450px;
     --calculate: calc(3 / 2);
+    
+    /* Breakpoints (para referencia en comentarios) */
+    --bp-xs: 320px;
+    --bp-sm: 360px;
+    --bp-md: 390px;
+    --bp-lg: 414px;
+    --bp-xl: 430px;
+    --bp-tablet: 768px;
+    
+    /* Fluid Spacing - Escalado automático según viewport */
+    --space-xs: clamp(0.5rem, 2vw, 1rem);
+    --space-sm: clamp(1rem, 3vw, 1.5rem);
+    --space-md: clamp(1.5rem, 4vw, 2rem);
+    --space-lg: clamp(2rem, 5vw, 3rem);
+    --space-xl: clamp(3rem, 6vw, 4rem);
+    
+    /* Fluid Typography - Tipografía que escala suavemente */
+    --font-xs: clamp(0.75rem, 2vw, 0.875rem);
+    --font-sm: clamp(0.875rem, 2.5vw, 1rem);
+    --font-base: clamp(1rem, 3vw, 1.125rem);
+    --font-md: clamp(1.125rem, 3.5vw, 1.5rem);
+    --font-lg: clamp(1.5rem, 4vw, 2rem);
+    --font-xl: clamp(2rem, 5vw + 0.5rem, 3rem);
+    --font-xxl: clamp(2.5rem, 6vw + 0.5rem, 5rem);
+    
+    /* Touch Targets - Tamaños mínimos para elementos táctiles */
+    --touch-min: 44px;
+    --touch-comfortable: 48px;
+    --touch-large: 56px;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 header{
     display: grid;
@@ -268,6 +304,11 @@ header nav{
 .prev .list .item.other_2 .main-content{
     opacity: 0;
 }
+/* ============================================
+   MEDIA QUERIES - MOBILE FIRST APPROACH
+   ============================================ */
+
+/* Tablet y Desktop - Ajuste de variables */
 @media screen and (max-width: 1023px){
     :root{
         --calculate: 1;
@@ -277,97 +318,189 @@ header nav{
         font-size: 3em;
     }
 }
+
+/* ============================================
+   MOBILE OPTIMIZATION - TODOS LOS TAMAÑOS
+   ============================================ */
+
+/* Base Mobile Styles - Aplica a todos los dispositivos móviles */
 @media screen and (max-width: 767px){
-    header{
-        grid-template-columns: auto 1fr;
-        padding: 0 20px;
+    /* ==========================================
+       NUEVO DISEÑO MOBILE - CARD STACK SCROLLABLE
+       Layout vertical moderno sin superposiciones
+       ========================================== */
+    
+    /* === RESET & FOUNDATION === */
+    
+    /* Ocultar efectos decorativos */
+    .carousel .list::after,
+    .carousel .list::before{
+        display: none;
     }
+    
+    /* Body - permitir scroll */
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    
+    /* === HEADER === */
+    
+    header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        grid-template-columns: auto 1fr;
+        padding: 0.5rem 1rem; /* Reduzco el padding */
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.05) 70%, transparent 100%); /* Más transparente */
+        backdrop-filter: blur(2px); /* Reduzco aún más el desenfoque */
+        z-index: 100;
+        transition: background-color 0.3s ease;
+    }
+    
+    header.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
     header .logo{
-        justify-content: start;
+        justify-content: flex-start;
     }
 
-    /* Side Panel Menu Container */
+    header .logo img{
+        width: clamp(60px, 15vw, 80px); /* Reduzco el tamaño del logo */
+        height: auto;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    /* Overlay del menú */
+    header.nav-active::before{
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 10;
+        animation: fadeIn 0.3s ease;
+        backdrop-filter: blur(4px);
+    }
+    
+    @keyframes fadeIn{
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Panel de navegación lateral */
     header nav{
         display: flex;
         position: fixed;
-        top: 5vh; /* Centered vertically */
-        left: -100%; /* Start off-screen */
-        width: 85vw; /* Smaller width */
-        height: 90vh; /* Reduced height */
-        background-color: rgba(58, 107, 82, 0.9); /* Transparent background */
+        top: 0;
+        left: -100%;
+        width: min(70vw, 300px); /* Reduzco el ancho del menú lateral */
+        height: 100vh;
+        background: linear-gradient(135deg, rgba(58, 107, 82, 0.98) 0%, rgba(79, 139, 105, 0.98) 100%);
+        backdrop-filter: blur(20px);
         justify-content: center;
         align-items: center;
-        transition: left 0.4s ease; /* Slide-in animation */
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 11;
-        border-radius: 15px; /* Rounded corners */
-        border-left: none; /* remove desktop border */
+        border-radius: 0 20px 20px 0;
+        box-shadow: 8px 0 40px rgba(0, 0, 0, 0.3);
     }
 
     header.nav-active .main-nav{
-        left: 0; /* Slide in */
+        left: 0;
     }
 
-    /* Wrapper for menu content */
+    /* Wrapper del menú */
     .nav-wrapper{
         display: flex;
-        height: 100%; /* Occupy full height of the nav panel */
-        width: 100%; /* Occupy full width of the nav panel */
+        height: 100%;
+        width: 100%;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 20px; /* Space from container borders */
+        padding: 2rem 1rem; /* Reduzco el padding interno del menú */
     }
     
-    /* Main Navigation Links */
+    /* Enlaces de navegación */
     header nav ul{
         flex-direction: column;
-        gap: 40px;
+        gap: clamp(30px, 5vh, 50px); /* Reduzco el gap entre enlaces */
         align-items: center;
-        padding-left: 0;
+        padding: 0;
         height: auto;
-        padding-right: 0; /* remove desktop padding */
         display: flex;
         justify-content: center;
     }
 
     header nav a{
         color: #fff;
-        font-size: 2.2em;
+        font-size: clamp(1.6rem, 4.5vw, 2.2rem); /* Reduzco el tamaño de fuente de los enlaces */
         font-weight: 500;
-        text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, color 0.3s ease;
+        position: relative;
     }
     
-    /* Staggered Animation for Main Links */
+    header nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 80%;
+        height: 3px;
+        background: #ffd700;
+        border-radius: 2px;
+        transition: transform 0.3s ease;
+    }
+
+    header nav a:hover,
+    header nav a:focus{
+        transform: scale(1.05);
+        color: #ffd700;
+    }
+    
+    header nav a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+    
+    /* Animaciones de entrada del menú */
     header nav .nav-wrapper > ul:not(.social-links) li{
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateX(-30px);
         transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     header.nav-active nav .nav-wrapper > ul:not(.social-links) li{
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 
     header.nav-active nav .nav-wrapper > ul:not(.social-links) li:nth-child(1){
-        transition-delay: 0.2s;
+        transition-delay: 0.1s;
     }
     header.nav-active nav .nav-wrapper > ul:not(.social-links) li:nth-child(2){
-        transition-delay: 0.3s;
+        transition-delay: 0.2s;
     }
     header.nav-active nav .nav-wrapper > ul:not(.social-links) li:nth-child(3){
-        transition-delay: 0.4s;
+        transition-delay: 0.3s;
     }
 
-    /* Nav Footer Styles */
+    /* Footer del menú */
     .nav-footer{
         display: block;
         text-align: center;
         color: #fff;
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s;
+        transition: opacity 0.4s ease 0.4s, transform 0.4s ease 0.4s;
     }
+    
     header.nav-active .nav-footer{
         opacity: 1;
         transform: translateY(0);
@@ -376,26 +509,38 @@ header nav{
     .social-links{
         display: flex;
         justify-content: center;
-        gap: 25px;
-        margin-bottom: 20px;
+        gap: 1rem;
+        margin-bottom: 1rem;
     }
 
     .social-links a{
         color: #fff;
-        font-size: 1.2em;
-        font-weight: 500;
+        font-size: 1.125rem;
+        padding: 10px 14px;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-links a:hover,
+    .social-links a:focus{
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
     .copyright{
-        font-size: 0.8em;
-        color: rgba(255,255,255,0.7);
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
     }
 
-    /* Hamburger Menu Icon */
+    /* Menú hamburguesa */
     .hamburger-menu{
         display: block;
-        width: 30px;
-        height: 20px;
+        width: 25px; /* Reduzco el ancho */
+        height: 18px; /* Reduzco la altura */
         position: relative;
         cursor: pointer;
         z-index: 12;
@@ -403,15 +548,23 @@ header nav{
         background: none;
         border: none;
         transition: transform 0.3s ease;
+        padding: 10px; /* Reduzco el padding */
+        min-width: 40px; /* Reduzco el min-width */
+        min-height: 40px; /* Reduzco el min-height */
     }
+    
     .hamburger-menu span{
         display: block;
         width: 100%;
-        height: 2px;
-        background-color: #000;
+        height: 2px; /* Reduzco el grosor de las líneas */
+        background-color: #fff;
         position: absolute;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        left: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Reduzco la sombra */
     }
+    
     .hamburger-menu span:nth-child(1){
         top: 0;
     }
@@ -423,92 +576,291 @@ header nav{
         bottom: 0;
     }
 
-    /* Active State for Hamburger to 'X' */
+    /* Estado activo del hamburger */
     header.nav-active .hamburger-menu{
         transform: rotate(90deg);
     }
+    
     header.nav-active .hamburger-menu span{
         background-color: #fff;
     }
+    
     header.nav-active .hamburger-menu span:nth-child(1){
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: rotate(45deg) translate(5px, 5px); /* Ajusto la traslación para que se vea bien el "X" */
     }
+    
     header.nav-active .hamburger-menu span:nth-child(2){
         opacity: 0;
     }
+    
     header.nav-active .hamburger-menu span:nth-child(3){
-        transform: rotate(-45deg) translate(7px, -6px);
+        transform: rotate(-45deg) translate(5px, -5px); /* Ajusto la traslación para que se vea bien el "X" */
+    }
+    
+    /* === CAROUSEL === */
+    
+    /* Contenedor principal del carrusel */
+    .carousel{
+        margin-top: 0;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    /* Lista de items - SCROLL VERTICAL */
+    .carousel .list{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        position: relative;
+        gap: 0;
+    }
+    
+    /* Cada item es una card completa de viewport */
+    .carousel .list .item{
+        position: relative !important;
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        opacity: 1 !important;
+        pointer-events: all !important;
+        transform: none !important;
+        transition: none;
+        scroll-snap-align: start;
+        padding-top: 80px; /* Espacio para header fijo */
+    }
+    
+    /* Deshabilitar clases de animación del carrusel original */
+    .carousel .list .item.active,
+    .carousel .list .item.other_1,
+    .carousel .list .item.other_2 {
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
+    }
+    
+    /* === HERO IMAGE SECTION === */
+    
+    .carousel .list .item .image{
+        position: relative !important;
+        width: 100%;
+        height: 45vh;
+        min-height: 300px;
+        max-height: 500px;
+        left: 0 !important;
+        top: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.5rem;
+        overflow: visible;
+        z-index: 1;
+    }
+    
+    .carousel .list .item .image img{
+        width: 85%;
+        max-width: 320px;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.25));
+        transition: transform 0.4s ease;
+        animation: floatImage 6s ease-in-out infinite;
+    }
+    
+    @keyframes floatImage {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+    
+    .carousel .list .item .image figcaption{
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.9);
+        font-size: clamp(1rem, 3vw, 1.25rem);
+        font-weight: 600;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4), transparent);
+        padding: 0.5rem 2rem;
+        border-radius: 20px;
+        backdrop-filter: blur(8px);
+    }
+    
+    /* === PRODUCT INFO CARD === */
+    
+    .carousel .list .item .main-content{
+        position: relative !important;
+        width: 100%;
+        height: auto !important;
+        min-height: auto !important;
+        bottom: auto !important;
+        left: 0 !important;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 250, 250, 0.95) 100%);
+        border-radius: 32px 32px 0 0;
+        padding: 2.5rem 1.75rem 3rem;
+        margin: -2rem 0 0 0;
+        box-shadow: 0 -15px 60px rgba(0, 0, 0, 0.15);
+        z-index: 2;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem;
+        backdrop-filter: blur(20px);
+    }
+    
+    .carousel .list .item .main-content .content{
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100%;
+        padding: 0 !important;
+        text-align: left !important;
+        gap: 1rem;
+    }
+    
+    /* Título del producto */
+    .carousel .list .item .main-content .content h2{
+        font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
+        margin: 0 !important;
+        line-height: 1.2 !important;
+        font-weight: 700;
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none !important;
+    }
+    
+    /* Precio */
+    .carousel .list .item .main-content .content .price{
+        font-size: clamp(1.5rem, 5vw, 2rem) !important;
+        margin: 0 !important;
+        font-weight: 700;
+        color: #27ae60;
+        text-shadow: none !important;
+        letter-spacing: -0.5px;
+    }
+    
+    /* Descripción */
+    .carousel .list .item .main-content .content .description{
+        font-size: clamp(0.95rem, 3vw, 1.05rem) !important;
+        line-height: 1.6 !important;
+        margin: 0 !important;
+        color: #555;
+        opacity: 1 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        display: block !important;
+        -webkit-line-clamp: unset !important;
+        line-clamp: unset !important;
+        -webkit-box-orient: unset !important;
+        text-overflow: clip !important;
+    }
+    
+    /* Botón CTA */
+    .carousel .list .item .main-content .content .addToCard{
+        margin: 1rem 0 0 0 !important;
+        padding: 16px 40px !important;
+        font-size: clamp(1rem, 3.5vw, 1.125rem) !important;
+        font-weight: 700 !important;
+        border-radius: 50px !important;
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
+        color: #fff !important;
+        border: none !important;
+        box-shadow: 0 8px 24px rgba(39, 174, 96, 0.35) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        cursor: pointer !important;
+        min-width: auto !important;
+        min-height: 56px !important;
+        align-self: stretch !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    /* Reset Carousel Styles for Mobile */
-    .carousel .list .item .image{
-        width: 100%;
-        height: 50vh;
-        left: 0;
-        top: 0;
-        justify-content: end;
-        padding-bottom: 0;
+    .carousel .list .item .main-content .content .addToCard:hover,
+    .carousel .list .item .main-content .content .addToCard:focus{
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 32px rgba(39, 174, 96, 0.45) !important;
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%) !important;
     }
-    .carousel .list .item .image img{
-        width: 80%;
-        max-width: 300px;
-        height: 100%;
-        object-fit: cover;
-        margin-bottom: 0;
+
+    .carousel .list .item .main-content .content .addToCard:active{
+        transform: translateY(0) scale(0.98) !important;
+        box-shadow: 0 4px 16px rgba(39, 174, 96, 0.3) !important;
     }
-    .carousel .list .item .image figcaption{
-        color: #fff;
-        width: 100%;
-        text-align: center;
-        background: linear-gradient(to top, #4f8b69, transparent);
-        padding: 30px 0 10px;
-        margin-bottom: 0;
-        font-size: 1.2em;
-    }
-    .carousel .list .item .main-content{
-        height: auto;
-        grid-template-columns: 1fr;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        padding: 30px 20px;
-        color: #fff;
-        background-color: #4f8b69;
-        text-align: center;
-    }
-    .carousel .list .item .main-content .content{
-        display: block;
-        padding: 0;
-    }
-    .carousel .list .item .main-content .content h2{
-        font-size: 2.2em;
-    }
-    .carousel .list .item .main-content .content .price{
-        font-size: 1.8em;
-    }
-    .carousel .list .item .main-content .content .description{
-        font-size: 0.9em;
-        line-height: 1.6;
-        margin: 15px 0;
-    }
+    
+    /* === NAVIGATION === */
+    
+    /* Ocultar botones de flechas originales */
     .arrows{
+        display: none !important;
+    }
+    
+    /* Indicadores de navegación (dots) */
+    .carousel::after {
+        display: none !important; /* Ocultar los puntos de navegación en mobile */
+        content: '';
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        height: 40px;
         display: flex;
+        align-items: center;
         justify-content: center;
-        width: 100%;
-        bottom: 10px;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        padding: 8px 16px;
+        border-radius: 24px;
+        z-index: 50;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* === OPTIMIZACIONES DE RENDIMIENTO === */
+    
+    /* Smooth scrolling nativo */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Acelerar hardware para animaciones */
+    .carousel .list .item .image img,
+    .carousel .list .item .main-content,
+    .carousel .list .item .main-content .content .addToCard {
+        will-change: transform;
+    }
+    
+    /* Deshabilitar animaciones originales del carrusel */
+    .carousel .list .item.active .main-content,
+    .next .item .image img,
+    .next .item .image figcaption,
+    .prev .list .item .image img,
+    .prev .list .item .image figcaption {
+        animation: none !important;
     }
 }
-@media screen and (max-width: 480px) {
-    .carousel .list .item .main-content .content h2 {
-        font-size: 1.8em;
+
+/* ============================================
+   ACCESIBILIDAD: Reducir animaciones
+   Para usuarios que prefieren menos movimiento
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
-    .carousel .list .item .main-content .content .price {
-        font-size: 1.5em;
-    }
-    .carousel .list .item .main-content .content .description{
-        font-size: 0.8em;
-    }
-    header .logo img{
-        width: 70px;
+    
+    .carousel .list .item.active .main-content{
+        animation: none !important;
     }
 }

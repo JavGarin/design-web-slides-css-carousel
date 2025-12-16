@@ -72,19 +72,50 @@ function renderProducts() {
  * Initializes the carousel functionality.
  * Sets up event listeners for the next and previous buttons and the autoplay feature.
  */
+/**
+ * Initializes the carousel functionality.
+ * Sets up event listeners for the next and previous buttons and the autoplay feature.
+ * DISABLED ON MOBILE: En mobile (≤767px) el carrusel se desactiva para permitir scroll natural.
+ */
 function startCarousel() {
-    // DOM elements for carousel controls
     const next = document.getElementById('next');
     const prev = document.getElementById('prev');
-    const carousel = document.querySelector('.carousel');
     const items = document.querySelectorAll('.carousel .item');
+    const carousel = document.querySelector('.carousel');
     const countItem = items.length;
+    
+    // Clear existing interval and event listeners to prevent conflicts
+    if (window.autoPlay) {
+        clearInterval(window.autoPlay);
+    }
+    next.onclick = null;
+    prev.onclick = null;
 
+    // Reset classes to ensure a clean state
+    items.forEach(item => {
+        item.classList.remove('active', 'other_1', 'other_2');
+    });
+
+    const isMobile = () => window.innerWidth <= 767;
+
+    if (isMobile()) {
+        console.log('Mobile detected: Carousel disabled, scroll enabled');
+        items.forEach(item => {
+            item.classList.add('active');
+        });
+        return;
+    }
+    
     // State variables for the carousel
     let active = 1;
     let other_1 = 0;
     let other_2 = 2;
-    let autoPlay;
+
+    // Set initial classes for desktop
+    items[active].classList.add('active');
+    items[other_1].classList.add('other_1');
+    items[other_2].classList.add('other_2');
+
 
     /**
      * Updates the carousel slides with the correct classes and resets animations.
@@ -108,8 +139,8 @@ function startCarousel() {
         items[other_2].classList.add('other_2');
 
         // Reset autoplay timer
-        clearInterval(autoPlay);
-        autoPlay = setInterval(() => next.click(), 5000);
+        clearInterval(window.autoPlay);
+        window.autoPlay = setInterval(() => next.click(), 5000);
     }
 
     // Event listener for the next button
@@ -133,7 +164,7 @@ function startCarousel() {
     };
 
     // Initialize autoplay
-    autoPlay = setInterval(() => next.click(), 5000);
+    window.autoPlay = setInterval(() => next.click(), 5000);
 }
 
 // Start the carousel logic after the DOM is fully loaded.
@@ -146,5 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     hamburger.addEventListener('click', () => {
         header.classList.toggle('nav-active');
+    });
+    
+    // Re-inicializar en resize para manejar cambios de orientación
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Re-ejecutar la inicialización del carrusel
+            startCarousel();
+        }, 250);
     });
 });
