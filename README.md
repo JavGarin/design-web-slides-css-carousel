@@ -4,7 +4,7 @@ This project is a visually appealing, interactive product carousel for a fiction
 
 ## Screenshot
 
-![Website Screenshot](images/screenshot-energy-store.png)
+![Website Screenshot](public/screenshot-energy-store.png)
 
 ## Development & Technology
 
