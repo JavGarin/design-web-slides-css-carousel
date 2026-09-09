@@ -1,0 +1,137 @@
+---
+// src/layouts/Layout.astro
+// Plantilla HTML base con metadatos SEO, fuentes Google y estilos críticos del loader
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Energy Store - Bebidas Energéticas Coleccionables</title>
+    <meta name="description" content="Bienvenido a Energy Store, tu tienda especializada en bebidas energéticas, café y mucho más." />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Javier Garin" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://web-carousel-ivory.vercel.app/" />
+    <meta property="og:title" content="Energy Store - bebidas energéticas, café y mucho más" />
+    <meta property="og:description" content="Explora nuestra exclusiva selección de bebidas energéticas internacionales." />
+    <meta property="og:image" content="/screenshot-energy-store.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://web-carousel-ivory.vercel.app" />
+    <meta property="twitter:title" content="Energy Store" />
+    <meta property="twitter:description" content="Tu tienda especializada en bebidas, café y mucho más." />
+    <meta property="twitter:image" content="/screenshot-energy-store.png" />
+
+    <!-- Estilos críticos inline: Loader minimalista crema rosado -->
+    <style>
+        /* ===== RESET CRÍTICO ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ===== ANTI-FLASH: body invisible hasta que cargue ===== */
+        body { opacity: 0; transition: opacity 0.1s ease; }
+        body.loaded { opacity: 1; }
+
+        /* ===== LOADER SCREEN MINIMALISTA CREMA ROSADO ===== */
+        #app-loader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #faebe7 0%, #f5dfd8 100%);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+            user-select: none;
+        }
+
+        #app-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-spinner-wrap {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-spinner {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(198, 47, 23, 0.12);
+            border-top: 3px solid #c62f17;
+            border-right: 3px solid #ff7a45;
+            border-radius: 50%;
+            animation: spinEnergy 0.9s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+        }
+
+        .loader-icon-dot {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #c62f17;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #c62f17;
+            animation: pulseEnergy 1.2s ease-in-out infinite;
+        }
+
+        .loader-text {
+            font-family: 'Montserrat', -apple-system, sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #6b4d45;
+            margin-left: 0.28em;
+            animation: textBreath 1.8s ease-in-out infinite;
+        }
+
+        @keyframes spinEnergy {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseEnergy {
+            0%, 100% { transform: scale(0.8); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        @keyframes textBreath {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+    </style>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Loading Screen Minimalista (Crema Rosado) -->
+    <div id="app-loader" aria-label="Cargando Energy Store">
+        <div class="loader-spinner-wrap">
+            <div class="loader-spinner"></div>
+            <div class="loader-icon-dot"></div>
+        </div>
+        <span class="loader-text">ingresando</span>
+    </div>
+
+    <slot />
+
+    <!-- Script: body visible inmediatamente para evitar flash -->
+    <script>
+        document.body.classList.add('loaded');
+    </script>
+</body>
+</html>

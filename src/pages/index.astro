@@ -1,0 +1,35 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+import '../styles/main.css';
+---
+
+<Layout>
+    <!-- Header Minimalista Reducido en el Top del Viewport -->
+    <header>
+        <div class="header-minimal-nav">
+            <span class="nav-text-item">Coffee</span>
+            <span class="nav-text-divider">•</span>
+            <span class="nav-text-item">Menu</span>
+            <span class="nav-text-divider">•</span>
+            <span class="nav-text-item">About</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="carousel next" aria-label="Carrusel de bebidas Energy Store">
+            <div class="list">
+                <!-- Los productos se inyectan dinamicamente por el CarouselEngine -->
+            </div>
+            <div class="arrows">
+                <button id="prev" aria-label="Producto anterior">&lt;</button>
+                <button id="next" aria-label="Producto siguiente">&gt;</button>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<!-- Script del carrusel: Astro lo procesa como modulo ES y lo bundlea -->
+<script>
+import '../scripts/carousel.js';
+</script>

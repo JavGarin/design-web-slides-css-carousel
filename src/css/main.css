@@ -1,0 +1,545 @@
+/* ============================================================
+   ENERGY STORE — STYLESHEET (PROFESSIONAL CINEMATIC ENGINE)
+   ============================================================ */
+
+/* 1. VARIABLES & DESIGN TOKENS */
+:root {
+    --w-image: clamp(440px, 34vw, 540px);
+    --calculate: calc(3 / 2);
+    --font-heading: 'Chelsea Market', cursive, system-ui;
+    --font-body: 'Montserrat', sans-serif;
+    --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. RESET & BASE */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    background-color: #4f8b69;
+    color: #fff;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 3. HEADER MINIMALISTA TOP */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 clamp(20px, 5vw, 60px);
+    z-index: 50;
+    pointer-events: none;
+}
+
+.header-minimal-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 6px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.nav-text-divider {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.65rem;
+}
+
+/* 4. CAROUSEL & SLIDES */
+.carousel {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel .list {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Los items NO generan stacking context propio para permitir que las latas (.image)
+   floten globalmente por encima del fondo en expansion (.main-content) */
+.carousel .list .item {
+    position: absolute;
+    inset: 0;
+    display: none;
+}
+
+.carousel .list .item.active,
+.carousel .list .item.other_1,
+.carousel .list .item.other_2 {
+    display: block;
+}
+
+.carousel .list .item.other_1,
+.carousel .list .item.other_2 {
+    pointer-events: none;
+}
+
+/* 5. CAPA DE FONDO & TEXTOS (Z-INDEX: 1 a 5) */
+.carousel .list .item .main-content {
+    position: relative;
+    height: 100%;
+    display: grid;
+    grid-template-columns: calc(100% - calc(var(--w-image) * var(--calculate)));
+    z-index: 1;
+}
+
+/* Sutil halo de luz difuso para realzar la lata con iluminacion de estudio */
+.carousel .list .item .main-content::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 75% 50%, rgba(255, 255, 255, 0.16) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* El fondo activo tiene z-index 3 para superponerse al fondo anterior (z-index 2),
+   pero SIEMPRE por debajo de las latas (.image z-index 12 y 15) */
+.carousel .list .item.active .main-content {
+    z-index: 3;
+    animation: showContent 1.35s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
+}
+
+.carousel .list .item.other_1 .main-content {
+    z-index: 2;
+}
+
+.carousel .list .item.other_2 .main-content {
+    z-index: 1;
+}
+
+.carousel .list .item .main-content .content {
+    position: relative;
+    z-index: 5;
+    padding: 130px 20px 20px clamp(40px, 6vw, 80px);
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel .list .item .main-content .content h2 {
+    font-size: clamp(3rem, 5.8vw, 5rem);
+    font-family: var(--font-heading);
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 8px;
+}
+
+.carousel .list .item .main-content .content .price {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    margin: 15px 0;
+    color: #fff;
+}
+
+.carousel .list .item .main-content .content .description {
+    font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.carousel .list .item .main-content .content .addToCard {
+    background-color: #000;
+    color: #fff;
+    padding: 13px 38px;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: none;
+    margin-top: 15px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: var(--transition-smooth);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.carousel .list .item .main-content .content .addToCard:hover {
+    background-color: #222;
+    transform: scale(1.05);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* 6. CAPA DE IMAGEN / LATAS EN PRIMER PLANO (Z-INDEX: 10 a 15)
+   Flotan SIEMPRE por encima de los fondos, evitando ser tapadas por la onda de color */
+.carousel .list .item .image {
+    width: var(--w-image);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: calc(100% - calc(var(--w-image) * var(--calculate)));
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 10;
+}
+
+.carousel .list .item.active .image {
+    z-index: 15;
+}
+
+.carousel .list .item.other_1 .image {
+    z-index: 12;
+}
+
+.carousel .list .item.other_2 .image {
+    z-index: 11;
+}
+
+.carousel .list .item .image img {
+    width: 95%;
+    max-width: 480px;
+    height: auto;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 140px 60px rgba(0, 0, 0, 0.55));
+    transition: transform 0.4s ease;
+    user-select: none;
+}
+
+.carousel .list .item .image figcaption {
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: 1.35em;
+    text-align: right;
+    margin-bottom: 35px;
+    width: 80%;
+    color: #fff;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* 7. FLECHAS DE NAVEGACION (Z-INDEX: 30) */
+.arrows {
+    position: absolute;
+    bottom: 35px;
+    width: calc(100% - calc(var(--w-image) * var(--calculate)));
+    display: grid;
+    grid-template-columns: repeat(2, 52px);
+    grid-template-rows: 52px;
+    justify-content: end;
+    gap: 12px;
+    z-index: 30;
+    padding-right: clamp(30px, 5vw, 60px);
+}
+
+.arrows button {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-radius: 50%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrows button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.08);
+}
+
+/* 8. ANIMACIONES CINEMATOGRAFICAS DE COLOR & TRASLACIONES */
+/* Duracion sedosa de 1.35s con curva suave para una transicion cromatica envolvente */
+@keyframes showContent {
+    from {
+        clip-path: circle(0% at 75% 50%);
+    }
+    to {
+        clip-path: circle(160% at 75% 50%);
+    }
+}
+
+.next .item .image img,
+.next .item .image figcaption {
+    animation: effectNext .5s ease-in-out 1 forwards;
+}
+
+@keyframes effectNext {
+    from { transform: translateX(calc(var(--transform-from))); }
+    to { transform: translateX(calc(var(--transform-from) - var(--w-image))); }
+}
+
+.next .item.active .image { --transform-from: var(--w-image); }
+.next .item.other_1 .image { --transform-from: 0px; overflow: hidden; }
+.next .item.other_2 .image { --transform-from: calc(var(--w-image) * 2); }
+
+.prev .list .item .image img,
+.prev .list .item .image figcaption {
+    animation: effectPrev 0.5s ease-in-out 1 forwards;
+}
+
+@keyframes effectPrev {
+    from { transform: translateX(calc(var(--transform-from))); }
+    to { transform: translateX(calc(var(--transform-from) + var(--w-image))); }
+}
+
+.prev .list .item.active .image { --transform-from: calc(var(--w-image) * -1); overflow: hidden; }
+.prev .list .item.other_1 .image { --transform-from: 0px; }
+.prev .list .item.other_2 .image { --transform-from: var(--w-image); }
+.prev .list .item.other_2 .main-content { opacity: 0; }
+
+/* 9. TABLET VIEWPORT (768px - 1023px) */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+    :root {
+        --calculate: 1.1;
+        --w-image: clamp(340px, 42vw, 420px);
+    }
+    .carousel .list .item .main-content .content {
+        padding: 110px 24px 30px clamp(30px, 4vw, 50px);
+    }
+    .carousel .list .item .main-content .content h2 {
+        font-size: clamp(2.6rem, 4.8vw, 3.8rem);
+    }
+    .carousel .list .item .main-content .content .price {
+        font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    }
+    .carousel .list .item .image img { max-width: 380px; }
+    .arrows { bottom: 25px; }
+}
+
+/* 10. MOBILE FIRST VIEWPORT (< 768px)
+   El fondo se expande por detras de la lata, sin taparla jamás */
+@media screen and (max-width: 767px) {
+    header {
+        top: 10px;
+        height: 42px;
+        padding: 0 16px;
+        justify-content: center;
+    }
+
+    .header-minimal-nav {
+        font-size: 0.7rem;
+        padding: 4px 13px;
+        gap: 8px;
+    }
+
+    /* Ocultar texto y figcaption de slides inactivos para evitar sobreposicion */
+    .carousel .list .item:not(.active) .main-content .content,
+    .carousel .list .item:not(.active) .image figcaption {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        display: none !important;
+    }
+
+    .carousel .list .item .main-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        grid-template-columns: 1fr;
+        padding: 0 20px clamp(22px, 3.8vh, 32px) 20px;
+    }
+
+    /* Halo centrado en la lata para mobile */
+    .carousel .list .item .main-content::after {
+        background: radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.2) 0%, transparent 65%);
+    }
+
+    /* Animacion de fondo cinematografica en mobile:
+       Nace DETRÁS de la lata desde su centro exacto (50% 32%) con 1.3s sedoso */
+    .carousel .list .item.active .main-content {
+        animation: showContentMobile 1.3s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
+    }
+
+    @keyframes showContentMobile {
+        from {
+            clip-path: circle(0% at 50% 32%);
+        }
+        to {
+            clip-path: circle(150% at 50% 32%);
+        }
+    }
+
+    /* Contenido tipografico que emerge coordinadamente con el fondo */
+    .carousel .list .item.active .main-content .content {
+        padding: 0 85px 0 0;
+        z-index: 15;
+        animation: mobileContentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    @keyframes mobileContentFadeIn {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .carousel .list .item .main-content .content h2 {
+        font-size: clamp(1.85rem, 6.8vw, 2.5rem);
+        margin-bottom: 2px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    .carousel .list .item .main-content .content .price {
+        font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+        margin: 4px 0 6px 0;
+    }
+
+    .carousel .list .item .main-content .content .description {
+        font-size: clamp(0.8rem, 2.6vw, 0.88rem);
+        line-height: 1.42;
+        margin-bottom: 12px;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    }
+
+    .carousel .list .item .main-content .content .addToCard {
+        padding: 11px 24px;
+        font-size: 0.88rem;
+        margin-top: 2px;
+    }
+
+    .carousel .list .item .main-content .content .addToCard:active {
+        transform: scale(0.95);
+        background-color: #1a1a1a;
+    }
+
+    /* La lata en Mobile: Flota siempre en z-index 15 (por encima de los fondos z-index 1-3) */
+    .carousel .list .item .image {
+        top: 56px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: calc(100dvh - 290px);
+        min-height: 200px;
+        max-height: 48dvh;
+        padding: 6px 16px;
+        pointer-events: none;
+    }
+
+    .carousel .list .item .image img {
+        height: 100%;
+        max-height: 340px;
+        width: auto;
+        max-width: 80vw;
+        object-fit: contain;
+        margin-bottom: 0;
+        filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+    }
+
+    /* Animacion de presencia de la lata en mobile */
+    .carousel .list .item.active .image img {
+        animation: mobileCanEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes mobileCanEnter {
+        from {
+            opacity: 0.85;
+            transform: scale(0.94);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .next .item.other_1 .image img,
+    .prev .list .item.other_1 .image img {
+        animation: mobileCanExit 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    @keyframes mobileCanExit {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+    }
+
+    /* Figcaption / Badge superior */
+    .carousel .list .item.active .image figcaption {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-body);
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: rgba(0, 0, 0, 0.26);
+        padding: 3px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        white-space: nowrap;
+        width: auto;
+        max-width: 90%;
+        margin-bottom: 0;
+        z-index: 20;
+    }
+
+    .next .item .image figcaption,
+    .prev .list .item .image figcaption {
+        animation: none !important;
+    }
+
+    .arrows {
+        bottom: clamp(20px, 3.8vh, 32px);
+        right: 16px;
+        width: auto;
+        display: flex !important;
+        grid-template-columns: unset;
+        grid-template-rows: unset;
+        gap: 8px;
+        padding-right: 0;
+    }
+
+    .arrows button {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .arrows button:active {
+        transform: scale(0.92);
+        background: rgba(255, 255, 255, 0.35);
+    }
+}
