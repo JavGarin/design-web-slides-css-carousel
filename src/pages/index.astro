@@ -5,33 +5,142 @@ import '../styles/main.css';
 ---
 
 <Layout>
-    <!-- Header Minimalista en el Top del Viewport con Logo de Marca -->
+    <!-- Header Minimalista en el Top del Viewport con Logo de Marca y Nombre Ficticio -->
     <header>
-        <a href="#" class="brand-logo" id="hero-brand-logo" aria-label="Energy Store - Inicio" title="Energy Store - Inicio">
+        <a href="#" class="brand-logo" id="hero-brand-logo" aria-label="Energy Stork - Inicio" title="Energy Stork - Inicio">
             <img 
                 src="/logo_energystore.png" 
-                alt="Energy Store Logo" 
+                alt="Energy Stork Logo" 
                 class="brand-logo-img" 
                 width="847" 
                 height="803"
                 loading="eager"
             />
+            <span class="brand-store-name">ENERGY STORK</span>
         </a>
 
-        <div class="header-minimal-nav">
-            <span class="nav-text-item">Coffee</span>
-            <span class="nav-text-divider">•</span>
-            <span class="nav-text-item">Menu</span>
-            <span class="nav-text-divider">•</span>
-            <span class="nav-text-item">About</span>
-        </div>
+        <!-- Navbar Minimalista con Dropdowns Interactivos Ficticios (Web & Mobile) -->
+        <nav class="header-minimal-nav" id="header-nav" aria-label="Navegación principal">
+            <!-- Dropdown 1: Coffee -->
+            <div class="nav-dropdown" data-dropdown="coffee">
+                <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">
+                    <span>Coffee</span>
+                    <svg class="dropdown-chevron" width="9" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu" role="menu">
+                    <div class="dropdown-header">Bebidas & Cold Brew</div>
+                    <a href="#coffee-nitro" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">⚡</div>
+                        <div class="item-info">
+                            <span class="item-title">Nitro Cold Brew</span>
+                            <span class="item-desc">Extracción fría + 180mg cafeína</span>
+                        </div>
+                    </a>
+                    <a href="#coffee-espresso" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">☕</div>
+                        <div class="item-info">
+                            <span class="item-title">Espresso Turbo</span>
+                            <span class="item-desc">Tueste oscuro & taurina pura</span>
+                        </div>
+                    </a>
+                    <a href="#coffee-matcha" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">🍵</div>
+                        <div class="item-info">
+                            <span class="item-title">Matcha Energy Focus</span>
+                            <span class="item-desc">L-teanina y foco sostenido</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <span class="nav-text-divider" aria-hidden="true">•</span>
+
+            <!-- Dropdown 2: Menu -->
+            <div class="nav-dropdown" data-dropdown="menu">
+                <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">
+                    <span>Menu</span>
+                    <svg class="dropdown-chevron" width="9" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu" role="menu">
+                    <div class="dropdown-header">Colección 2026</div>
+                    <a href="#menu-carls" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">🔥</div>
+                        <div class="item-info">
+                            <span class="item-title">Edición Berry & Ferno</span>
+                            <span class="item-desc">Latas de diseño coleccionables</span>
+                        </div>
+                    </a>
+                    <a href="#menu-packs" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">📦</div>
+                        <div class="item-info">
+                            <span class="item-title">Multipacks x6 & x12</span>
+                            <span class="item-desc">Ahorro 20% + entrega express</span>
+                        </div>
+                    </a>
+                    <a href="#menu-merch" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">👕</div>
+                        <div class="item-info">
+                            <span class="item-title">Streetwear & Merch</span>
+                            <span class="item-desc">Hoodies & botellas térmicas</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <span class="nav-text-divider" aria-hidden="true">•</span>
+
+            <!-- Dropdown 3: About -->
+            <div class="nav-dropdown" data-dropdown="about">
+                <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">
+                    <span>About</span>
+                    <svg class="dropdown-chevron" width="9" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu" role="menu">
+                    <div class="dropdown-header">Sobre Energy Stork</div>
+                    <a href="#about-manifesto" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">🦅</div>
+                        <div class="item-info">
+                            <span class="item-title">Manifiesto Stork</span>
+                            <span class="item-desc">Energía limpia y diseño futurista</span>
+                        </div>
+                    </a>
+                    <a href="#about-eco" class="dropdown-item" role="menuitem">
+                        <div class="item-info">
+                            <span class="item-title">Sostenibilidad</span>
+                            <span class="item-desc">Aluminio 100% infinito reciclable</span>
+                        </div>
+                    </a>
+                    <a href="#about-stores" class="dropdown-item" role="menuitem">
+                        <div class="item-icon">📍</div>
+                        <div class="item-info">
+                            <span class="item-title">Concept Stores</span>
+                            <span class="item-desc">Experiencias y venta física</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <section class="carousel next" aria-label="Carrusel de bebidas Energy Store">
+        <section class="carousel next" aria-label="Carrusel de bebidas Energy Stork">
             <div class="list">
                 <!-- Los productos se inyectan dinamicamente por el CarouselEngine -->
             </div>
+            <!-- Indicador Minimalista de Navegación por Scroll / Rueda de Ratón -->
+            <div class="scroll-indicator" id="scroll-indicator" aria-label="Navegar por scroll o rueda del ratón">
+                <div class="mouse-icon" aria-hidden="true">
+                    <span class="wheel-dot"></span>
+                </div>
+                <span class="scroll-text">Scroll</span>
+            </div>
+
             <div class="arrows">
                 <button id="prev" aria-label="Producto anterior">&lt;</button>
                 <button id="next" aria-label="Producto siguiente">&gt;</button>
@@ -40,7 +149,8 @@ import '../styles/main.css';
     </main>
 </Layout>
 
-<!-- Script del carrusel: Astro lo procesa como modulo ES y lo bundlea -->
+<!-- Scripts: Astro los procesa como modulos ES -->
 <script>
 import '../scripts/carousel.js';
+import '../scripts/navbar.js';
 </script>

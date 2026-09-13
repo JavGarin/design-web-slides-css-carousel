@@ -111,39 +111,73 @@ class CarouselEngine {
       items[this.other_1]?.classList.add('other_1');
       items[this.other_2]?.classList.add('other_2');
 
-      clearInterval(this.autoPlayTimer);
-      this.autoPlayTimer = setInterval(() => next?.click(), 5500);
+      startAutoPlay();
+    };
+
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      this.autoPlayTimer = setInterval(goNext, 8500);
+    };
+
+    const stopAutoPlay = () => {
+      if (this.autoPlayTimer) {
+        clearInterval(this.autoPlayTimer);
+        this.autoPlayTimer = null;
+      }
+    };
+
+    const goNext = () => {
+      carousel.classList.remove('prev');
+      carousel.classList.add('next');
+      this.active = (this.active + 1) % countItem;
+      this.other_1 = (this.active - 1 + countItem) % countItem;
+      this.other_2 = (this.active + 1) % countItem;
+      changeSlider();
+    };
+
+    const goPrev = () => {
+      carousel.classList.remove('next');
+      carousel.classList.add('prev');
+      this.active = (this.active - 1 + countItem) % countItem;
+      this.other_1 = (this.active + 1) % countItem;
+      this.other_2 = (this.other_1 + 1) % countItem;
+      changeSlider();
     };
 
     if (next) {
-      next.onclick = () => {
-        carousel.classList.remove('prev');
-        carousel.classList.add('next');
-        this.active = (this.active + 1) % countItem;
-        this.other_1 = (this.active - 1 + countItem) % countItem;
-        this.other_2 = (this.active + 1) % countItem;
-        changeSlider();
+      next.onclick = (e) => {
+        e?.stopPropagation?.();
+        goNext();
       };
     }
 
     if (prev) {
-      prev.onclick = () => {
-        carousel.classList.remove('next');
-        carousel.classList.add('prev');
-        this.active = (this.active - 1 + countItem) % countItem;
-        this.other_1 = (this.active + 1) % countItem;
-        this.other_2 = (this.other_1 + 1) % countItem;
-        changeSlider();
+      prev.onclick = (e) => {
+        e?.stopPropagation?.();
+        goPrev();
       };
     }
 
-    // Gestos táctiles Swipe para Mobile
+    // ============================================
+    // PROTECCIÓN UX DE LECTURA Y COMPRA (Desktop & Mobile)
+    // ============================================
+
+    // 1. Pausar autoplay cuando el usuario pasa el cursor sobre el carrusel/tarjeta/botón (Desktop)
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+
+    // 2. Pausar cuando un botón o texto recibe foco (Navegación accesible/teclado)
+    carousel.addEventListener('focusin', stopAutoPlay);
+    carousel.addEventListener('focusout', startAutoPlay);
+
+    // 3. Gestos táctiles y lectura en Mobile
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
     let touchEndY = 0;
 
     carousel.addEventListener('touchstart', (e) => {
+      stopAutoPlay();
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
@@ -154,22 +188,55 @@ class CarouselEngine {
       const diffX = touchEndX - touchStartX;
       const diffY = touchEndY - touchStartY;
 
-      // Detectar swipe horizontal significativo (más de 40px y con predominio horizontal)
+      // Detectar swipe horizontal significativo (más de 40px)
       if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX < 0) {
-          next?.click(); // Swipe hacia la izquierda -> siguiente
+          goNext(); // Swipe izquierda -> siguiente
         } else {
-          prev?.click(); // Swipe hacia la derecha -> anterior
+          goPrev(); // Swipe derecha -> anterior
         }
+      } else {
+        // Si fue solo un tap o lectura sin swipe, reanudar tiempo completo de lectura
+        startAutoPlay();
       }
     }, { passive: true });
 
+    // 4. Navegación por rueda del mouse / Scrollpad con control de inercia
+    let wheelThrottle = false;
+    window.addEventListener('wheel', (e) => {
+      // No interferir si el usuario hace scroll dentro de los dropdowns del navbar
+      if (e.target.closest('.dropdown-menu')) return;
+
+      if (wheelThrottle) return;
+
+      if (Math.abs(e.deltaY) > 25) {
+        wheelThrottle = true;
+        if (e.deltaY > 0) {
+          goNext();
+        } else {
+          goPrev();
+        }
+        setTimeout(() => {
+          wheelThrottle = false;
+        }, 750);
+      }
+    }, { passive: true });
+
+    // Clic en el indicador de scroll para avanzar producto
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+      scrollIndicator.onclick = () => {
+        goNext();
+      };
+    }
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') next?.click();
-      if (e.key === 'ArrowLeft') prev?.click();
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') goNext();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') goPrev();
     });
 
-    this.autoPlayTimer = setInterval(() => next?.click(), 5500);
+    // Iniciar temporizador base de lectura
+    startAutoPlay();
 
     let resizeTimer;
     window.addEventListener('resize', () => {

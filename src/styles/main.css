@@ -48,9 +48,10 @@ header {
     pointer-events: none;
 }
 
-/* BRAND LOGO INTERACTIVO HERO */
+/* BRAND LOGO INTERACTIVO HERO & NOMBRE TIENDA */
 .brand-logo {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-decoration: none;
@@ -60,12 +61,13 @@ header {
     outline: none;
     cursor: pointer;
     border-radius: 12px;
+    gap: 3px;
 }
 
 .brand-logo-img {
-    height: clamp(34px, 2.8vw, 44px);
+    height: clamp(32px, 2.6vw, 42px);
     width: auto;
-    max-height: 44px;
+    max-height: 42px;
     object-fit: contain;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.28));
     transform: scale(1) translateY(0);
@@ -75,12 +77,31 @@ header {
     -webkit-user-drag: none;
 }
 
+.brand-store-name {
+    font-family: var(--font-heading, inherit);
+    font-size: clamp(0.56rem, 0.66vw, 0.7rem);
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+    transition: color 0.3s ease, letter-spacing 0.3s ease, text-shadow 0.3s ease;
+    user-select: none;
+}
+
 /* Efecto Hover & Focus: Sombra de alta energía (aura eléctrica) + Escala fluida */
 .brand-logo:hover .brand-logo-img,
 .brand-logo:focus-visible .brand-logo-img {
-    transform: scale(1.12) translateY(-2px);
+    transform: scale(1.1) translateY(-2px);
     filter: drop-shadow(0 0 20px rgba(255, 155, 45, 0.65)) 
             drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+
+.brand-logo:hover .brand-store-name,
+.brand-logo:focus-visible .brand-store-name {
+    color: #ff9d42;
+    text-shadow: 0 0 12px rgba(255, 145, 40, 0.65), 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .brand-logo:active .brand-logo-img {
@@ -89,31 +110,206 @@ header {
     transition: transform 0.1s ease, filter 0.1s ease;
 }
 
+/* NAVBAR MINIMALISTA CON DROPDOWNS INTERACTIVOS (2026 GLASSMORPHISM) */
 .header-minimal-nav {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     font-size: 0.85rem;
     font-weight: 500;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.85);
-    background: rgba(0, 0, 0, 0.2);
-    padding: 6px 18px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.88);
+    background: rgba(18, 12, 12, 0.4);
+    padding: 4px 12px;
+    border-radius: 24px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     pointer-events: auto;
     white-space: nowrap;
+    z-index: 55;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 14px;
+    transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    user-select: none;
+}
+
+.nav-btn:hover,
+.nav-btn:focus-visible,
+.nav-dropdown.is-open .nav-btn {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.dropdown-chevron {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.nav-dropdown.is-open .dropdown-chevron,
+.nav-dropdown:hover .dropdown-chevron {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px) scale(0.96);
+    min-width: 250px;
+    max-width: 90vw;
+    background: linear-gradient(135deg, rgba(24, 10, 8, 0.94) 0%, rgba(14, 6, 5, 0.97) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    padding: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 126, 41, 0.12) inset;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.24s;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+/* Alineaciones inteligentes para evitar desbordes laterales */
+.nav-dropdown[data-dropdown="coffee"] .dropdown-menu {
+    left: 0;
+    transform: translateY(8px) scale(0.96);
+}
+
+.nav-dropdown[data-dropdown="coffee"]:hover .dropdown-menu,
+.nav-dropdown[data-dropdown="coffee"].is-open .dropdown-menu {
+    transform: translateY(0) scale(1);
+}
+
+.nav-dropdown[data-dropdown="about"] .dropdown-menu {
+    left: auto;
+    right: 0;
+    transform: translateY(8px) scale(0.96);
+}
+
+.nav-dropdown[data-dropdown="about"]:hover .dropdown-menu,
+.nav-dropdown[data-dropdown="about"].is-open .dropdown-menu {
+    transform: translateY(0) scale(1);
+}
+
+@media (hover: hover) {
+    .nav-dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
+.nav-dropdown.is-open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.nav-dropdown[data-dropdown="coffee"].is-open .dropdown-menu,
+.nav-dropdown[data-dropdown="about"].is-open .dropdown-menu {
+    transform: translateY(0) scale(1);
+}
+
+.dropdown-header {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #ff9d42;
+    padding: 6px 10px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(3px);
+}
+
+.dropdown-item .item-icon {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.dropdown-item .item-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1px;
+}
+
+.dropdown-item .item-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.dropdown-item .item-desc {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.2;
 }
 
 .nav-text-divider {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.6rem;
+    user-select: none;
 }
 
 /* 4. CAROUSEL & SLIDES */
@@ -187,7 +383,7 @@ header {
 .carousel .list .item .main-content .content {
     position: relative;
     z-index: 5;
-    padding: 130px 20px 20px clamp(40px, 6vw, 80px);
+    padding: clamp(165px, 18vh, 215px) 20px 40px clamp(40px, 6vw, 80px);
     max-width: 680px;
     display: flex;
     flex-direction: column;
@@ -221,33 +417,33 @@ header {
     overflow: hidden;
 }
 
-/* CONTENEDOR MODERNO PARA TÍTULO + TEXTO (panel izquierdo) */
+/* CONTENEDOR MODERNO PARA TÍTULO + TEXTO CON BORDE DORADO LUMINOSO */
 .carousel .list .item .main-content .content .text-card {
     position: relative;
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 24px;
     padding: 28px 32px 24px 32px;
     margin-bottom: 22px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    overflow: hidden;
+    border: 1.5px solid transparent;
+    background: 
+        linear-gradient(135deg, rgba(26, 12, 10, 0.72) 0%, rgba(14, 6, 5, 0.85) 100%) padding-box,
+        linear-gradient(90deg, rgba(255, 215, 0, 0.12) 0%, #ffd700 30%, #fff8cc 50%, #ffd700 70%, rgba(255, 215, 0, 0.12) 100%) border-box;
+    background-size: 100% 100%, 300% 100%;
+    animation: goldBorderFlow 4.5s ease-in-out infinite alternate;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.3),
+                0 0 18px rgba(255, 215, 0, 0.12);
 }
 
-/* Línea decorativa superior izquierda — acento energético */
-.carousel .list .item .main-content .content .text-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 28px;
-    width: 48px;
-    height: 3px;
-    background: linear-gradient(90deg, #ff7e29, #f42e61);
-    border-radius: 0 0 4px 4px;
+@keyframes goldBorderFlow {
+    0% {
+        background-position: 0% 0%, 0% 50%;
+    }
+    100% {
+        background-position: 0% 0%, 100% 50%;
+    }
 }
 
 .carousel .list .item .main-content .content .text-card h2 {
@@ -408,8 +604,9 @@ header {
     max-width: 480px;
     height: auto;
     margin-bottom: 25px;
-    filter: drop-shadow(0 140px 60px rgba(0, 0, 0, 0.55));
-    transition: transform 0.4s ease;
+    filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.22))
+            drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+    transition: transform 0.4s ease, filter 0.4s ease;
     user-select: none;
 }
 
@@ -430,22 +627,24 @@ header {
     bottom: 35px;
     width: calc(100% - calc(var(--w-image) * var(--calculate)));
     display: grid;
-    grid-template-columns: repeat(2, 52px);
-    grid-template-rows: 52px;
+    grid-template-columns: repeat(2, 42px);
+    grid-template-rows: 42px;
     justify-content: end;
-    gap: 12px;
+    gap: 10px;
     z-index: 30;
-    padding-right: clamp(30px, 5vw, 60px);
+    padding-right: clamp(24px, 4vw, 50px);
 }
 
 .arrows button {
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     color: #fff;
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-size: 1.15rem;
+    font-weight: 500;
     border-radius: 50%;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     transition: var(--transition-smooth);
     display: flex;
@@ -454,8 +653,90 @@ header {
 }
 
 .arrows button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.08);
+    background-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 215, 0, 0.4);
+    color: #ffd700;
+    transform: scale(1.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+/* 7.1 INDICADOR MODERNO DE SCROLL / RUEDA DE RATÓN (2026 GLASSMORPHISM) */
+.scroll-indicator {
+    position: absolute;
+    bottom: 35px;
+    right: clamp(24px, 3.5vw, 50px);
+    left: auto;
+    transform: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    background: rgba(18, 12, 12, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 35;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.scroll-indicator:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.mouse-icon {
+    width: 12px;
+    height: 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.75);
+    border-radius: 9px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5px;
+    transition: border-color 0.3s ease;
+}
+
+.scroll-indicator:hover .mouse-icon {
+    border-color: #ffd700;
+}
+
+.wheel-dot {
+    width: 2.5px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 2px;
+    animation: scrollWheelBounce 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scrollWheelBounce {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    30% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
 }
 
 /* 8. ANIMACIONES CINEMATOGRAFICAS DE COLOR & TRASLACIONES */
@@ -505,7 +786,7 @@ header {
         --w-image: clamp(340px, 42vw, 420px);
     }
     .carousel .list .item .main-content .content {
-        padding: 110px 24px 30px clamp(30px, 4vw, 50px);
+        padding: clamp(140px, 16vh, 180px) 24px 30px clamp(30px, 4vw, 50px);
     }
     .carousel .list .item .main-content .content h2 {
         font-size: clamp(2.6rem, 4.8vw, 3.8rem);
@@ -522,15 +803,28 @@ header {
 @media screen and (max-width: 767px) {
     header {
         top: 12px;
-        height: 44px;
-        padding: 0 16px;
+        min-height: 44px;
+        height: auto;
+        padding: 0 14px;
+        display: flex;
+        align-items: center;
         justify-content: space-between;
     }
 
+    .brand-logo {
+        gap: 2px;
+        flex-shrink: 0;
+    }
+
     .brand-logo-img {
-        height: 28px;
-        max-height: 28px;
+        height: 24px;
+        max-height: 24px;
         filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.25));
+    }
+
+    .brand-store-name {
+        font-size: 0.48rem;
+        letter-spacing: 0.12em;
     }
 
     .brand-logo:hover .brand-logo-img,
@@ -540,10 +834,94 @@ header {
                 drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
     }
 
+    /* Navbar en Mobile: Alineado elegantemente a la derecha con proporción equilibrada */
     .header-minimal-nav {
-        font-size: 0.7rem;
-        padding: 4px 13px;
-        gap: 8px;
+        position: relative;
+        left: auto;
+        transform: none;
+        margin-left: auto;
+        font-size: 0.62rem;
+        padding: 3px 6px;
+        gap: 2px;
+        border-radius: 18px;
+        background: rgba(14, 8, 8, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-btn {
+        font-size: 0.62rem;
+        padding: 3px 6px;
+        gap: 2px;
+        letter-spacing: 0.03em;
+        border-radius: 10px;
+    }
+
+    .dropdown-chevron {
+        width: 7px;
+        height: 4px;
+        opacity: 0.6;
+    }
+
+    .nav-text-divider {
+        font-size: 0.4rem;
+        margin: 0 1px;
+        opacity: 0.25;
+    }
+
+    /* Dropdown en Mobile: Anclado dinámicamente al botón en el viewport */
+    .dropdown-menu,
+    .nav-dropdown[data-dropdown="coffee"] .dropdown-menu,
+    .nav-dropdown[data-dropdown="menu"] .dropdown-menu,
+    .nav-dropdown[data-dropdown="about"] .dropdown-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        left: auto;
+        transform: translateY(6px) scale(0.96);
+        min-width: 230px;
+        max-width: calc(100vw - 28px);
+        width: max-content;
+        padding: 8px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(26, 12, 10, 0.96) 0%, rgba(14, 6, 5, 0.98) 100%);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7),
+                    0 0 0 1px rgba(255, 126, 41, 0.15) inset;
+        transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    visibility 0.22s;
+    }
+
+    .nav-dropdown.is-open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+    }
+
+    .dropdown-header {
+        font-size: 0.62rem;
+        padding: 4px 8px 4px;
+    }
+
+    .dropdown-item {
+        padding: 7px 9px;
+        gap: 9px;
+        border-radius: 10px;
+    }
+
+    .dropdown-item .item-icon {
+        width: 26px;
+        height: 26px;
+        font-size: 0.95rem;
+    }
+
+    .dropdown-item .item-title {
+        font-size: 0.75rem;
+    }
+
+    .dropdown-item .item-desc {
+        font-size: 0.62rem;
     }
 
     /* Ocultar texto y figcaption de slides inactivos para evitar sobreposicion */
@@ -614,17 +992,13 @@ header {
         line-clamp: 3;
     }
 
-    /* Text-card compacto en mobile */
+    /* Text-card compacto en mobile con borde dorado fluido */
     .carousel .list .item .main-content .content .text-card {
         padding: 16px 18px 14px 18px;
         border-radius: 16px;
         margin-bottom: 14px;
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .carousel .list .item .main-content .content .text-card::before {
-        left: 18px;
-        width: 36px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35),
+                    0 0 14px rgba(255, 215, 0, 0.1);
     }
 
     .carousel .list .item .main-content .content .text-card h2 {
@@ -660,25 +1034,26 @@ header {
 
     /* La lata en Mobile: Flota siempre en z-index 15 (por encima de los fondos z-index 1-3) */
     .carousel .list .item .image {
-        top: 56px;
+        top: 68px;
         left: 0;
         right: 0;
         width: 100%;
-        height: calc(100dvh - 290px);
-        min-height: 200px;
-        max-height: 48dvh;
+        height: calc(100dvh - 305px);
+        min-height: 190px;
+        max-height: 46dvh;
         padding: 6px 16px;
         pointer-events: none;
     }
 
     .carousel .list .item .image img {
         height: 100%;
-        max-height: 340px;
+        max-height: 330px;
         width: auto;
         max-width: 80vw;
         object-fit: contain;
         margin-bottom: 0;
-        filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.20))
+                drop-shadow(0 3px 6px rgba(0, 0, 0, 0.10));
     }
 
     /* Animacion de presencia de la lata en mobile */
@@ -713,27 +1088,28 @@ header {
         }
     }
 
-    /* Figcaption / Badge superior */
+    /* Figcaption / Badge del producto con espacio holgado bajo el navbar */
     .carousel .list .item.active .image figcaption {
         position: absolute;
-        top: 0;
+        top: 10px;
         left: 50%;
         transform: translateX(-50%);
         font-family: var(--font-body);
-        font-size: 0.68rem;
+        font-size: 0.66rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        background: rgba(0, 0, 0, 0.26);
-        padding: 3px 12px;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 4px 12px;
         border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         white-space: nowrap;
         width: auto;
         max-width: 90%;
         margin-bottom: 0;
         z-index: 20;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
     }
 
     .next .item .image figcaption,
@@ -742,28 +1118,55 @@ header {
     }
 
     .arrows {
-        bottom: clamp(20px, 3.8vh, 32px);
+        bottom: clamp(16px, 3vh, 24px);
         right: 16px;
         width: auto;
         display: flex !important;
         grid-template-columns: unset;
         grid-template-rows: unset;
-        gap: 8px;
+        gap: 6px;
         padding-right: 0;
     }
 
     .arrows button {
-        width: 42px;
-        height: 42px;
-        font-size: 1.1rem;
-        background: rgba(0, 0, 0, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.28);
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.25);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
     }
 
     .arrows button:active {
-        transform: scale(0.92);
-        background: rgba(255, 255, 255, 0.35);
+        transform: scale(0.9);
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .scroll-indicator {
+        bottom: calc(clamp(16px, 3vh, 24px) + 44px);
+        right: 16px;
+        left: auto;
+        transform: none;
+        padding: 3px 8px;
+        font-size: 0.55rem;
+        gap: 4px;
+        border-radius: 14px;
+    }
+
+    .scroll-indicator:hover {
+        transform: translateY(-2px);
+    }
+
+    .mouse-icon {
+        width: 10px;
+        height: 15px;
+        border-width: 1.2px;
+        padding-top: 2px;
+    }
+
+    .wheel-dot {
+        width: 2px;
+        height: 3px;
     }
 }
