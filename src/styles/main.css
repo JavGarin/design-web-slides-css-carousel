@@ -39,16 +39,60 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    height: 65px;
+    height: 75px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 0 clamp(20px, 5vw, 60px);
     z-index: 50;
     pointer-events: none;
 }
 
+/* BRAND LOGO INTERACTIVO HERO */
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    pointer-events: auto;
+    position: relative;
+    z-index: 52;
+    outline: none;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.brand-logo-img {
+    height: clamp(34px, 2.8vw, 44px);
+    width: auto;
+    max-height: 44px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.28));
+    transform: scale(1) translateY(0);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Efecto Hover & Focus: Sombra de alta energía (aura eléctrica) + Escala fluida */
+.brand-logo:hover .brand-logo-img,
+.brand-logo:focus-visible .brand-logo-img {
+    transform: scale(1.12) translateY(-2px);
+    filter: drop-shadow(0 0 20px rgba(255, 155, 45, 0.65)) 
+            drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+
+.brand-logo:active .brand-logo-img {
+    transform: scale(0.94) translateY(0);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    transition: transform 0.1s ease, filter 0.1s ease;
+}
+
 .header-minimal-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -63,6 +107,8 @@ header {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: auto;
+    white-space: nowrap;
 }
 
 .nav-text-divider {
@@ -167,7 +213,7 @@ header {
     font-size: clamp(0.92rem, 1.1vw, 1.05rem);
     line-height: 1.65;
     color: rgba(255, 255, 255, 0.92);
-    margin-bottom: 15px;
+    margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     line-clamp: 5;
@@ -175,26 +221,158 @@ header {
     overflow: hidden;
 }
 
-.carousel .list .item .main-content .content .addToCard {
-    background-color: #000;
-    color: #fff;
-    padding: 13px 38px;
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    font-weight: 600;
-    border-radius: 30px;
-    border: none;
-    margin-top: 15px;
-    cursor: pointer;
-    align-self: flex-start;
-    transition: var(--transition-smooth);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+/* CONTENEDOR MODERNO PARA TÍTULO + TEXTO (panel izquierdo) */
+.carousel .list .item .main-content .content .text-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    padding: 28px 32px 24px 32px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    overflow: hidden;
 }
 
+/* Línea decorativa superior izquierda — acento energético */
+.carousel .list .item .main-content .content .text-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 28px;
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff7e29, #f42e61);
+    border-radius: 0 0 4px 4px;
+}
+
+.carousel .list .item .main-content .content .text-card h2 {
+    font-size: clamp(3rem, 5.8vw, 5rem);
+    font-family: var(--font-heading);
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 4px;
+}
+
+.carousel .list .item .main-content .content .text-card .price {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    margin: 10px 0 14px 0;
+    color: #fff;
+}
+
+
+/* 2026 AWWWARDS HIGH-END CTA BUTTON (MAGNETIC OBSIDIAN & ELECTRIC ORB) */
+.carousel .list .item .main-content .content .addToCard {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 7px 8px 7px 26px;
+    margin-top: 18px;
+    background: linear-gradient(135deg, rgba(42, 10, 6, 0.92) 0%, rgba(20, 4, 2, 0.97) 100%);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+    align-self: flex-start;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35),
+                inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+}
+
+/* Efecto de rayo de luz líquido / Liquid Shimmer sweep */
+.carousel .list .item .main-content .content .addToCard .btn-shine {
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.22) 50%,
+        transparent 100%
+    );
+    transform: translateX(-140%) skewX(-20deg);
+    transition: transform 0.8s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.carousel .list .item .main-content .content .addToCard .btn-text {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Icon Orb Capsule con gradiente eléctrico de energía */
+.carousel .list .item .main-content .content .addToCard .btn-icon {
+    position: relative;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff7e29 0%, #ff3b14 50%, #f42e61 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(255, 59, 20, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.carousel .list .item .main-content .content .addToCard .btn-icon svg {
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Interacción Hover: Elevación, Aura Luminosa y Proyección del Icono */
 .carousel .list .item .main-content .content .addToCard:hover {
-    background-color: #222;
-    transform: scale(1.05);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    transform: translateY(-3px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.48);
+    background: linear-gradient(135deg, rgba(58, 14, 8, 0.97) 0%, rgba(28, 6, 3, 0.99) 100%);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.42),
+                0 0 28px rgba(255, 100, 30, 0.38),
+                inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.carousel .list .item .main-content .content .addToCard:hover .btn-shine {
+    transform: translateX(160%) skewX(-20deg);
+}
+
+.carousel .list .item .main-content .content .addToCard:hover .btn-icon {
+    transform: scale(1.1) rotate(6deg);
+    background: linear-gradient(135deg, #ff9436 0%, #ff2b00 100%);
+    box-shadow: 0 6px 24px rgba(255, 59, 20, 0.75),
+                0 0 16px rgba(255, 170, 50, 0.55),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.carousel .list .item .main-content .content .addToCard:hover .btn-icon svg {
+    transform: translateX(3px);
+}
+
+.carousel .list .item .main-content .content .addToCard:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3),
+                0 0 12px rgba(255, 100, 30, 0.25);
+    transition: all 0.1s ease;
 }
 
 /* 6. CAPA DE IMAGEN / LATAS EN PRIMER PLANO (Z-INDEX: 10 a 15)
@@ -343,10 +521,23 @@ header {
    El fondo se expande por detras de la lata, sin taparla jamás */
 @media screen and (max-width: 767px) {
     header {
-        top: 10px;
-        height: 42px;
+        top: 12px;
+        height: 44px;
         padding: 0 16px;
-        justify-content: center;
+        justify-content: space-between;
+    }
+
+    .brand-logo-img {
+        height: 28px;
+        max-height: 28px;
+        filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.25));
+    }
+
+    .brand-logo:hover .brand-logo-img,
+    .brand-logo:active .brand-logo-img {
+        transform: scale(1.08);
+        filter: drop-shadow(0 6px 16px rgba(255, 145, 0, 0.6))
+                drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
     }
 
     .header-minimal-nav {
@@ -418,20 +609,53 @@ header {
     .carousel .list .item .main-content .content .description {
         font-size: clamp(0.8rem, 2.6vw, 0.88rem);
         line-height: 1.42;
-        margin-bottom: 12px;
+        margin-bottom: 0;
         -webkit-line-clamp: 3;
         line-clamp: 3;
     }
 
-    .carousel .list .item .main-content .content .addToCard {
-        padding: 11px 24px;
-        font-size: 0.88rem;
-        margin-top: 2px;
+    /* Text-card compacto en mobile */
+    .carousel .list .item .main-content .content .text-card {
+        padding: 16px 18px 14px 18px;
+        border-radius: 16px;
+        margin-bottom: 14px;
+        background: rgba(255, 255, 255, 0.1);
     }
 
-    .carousel .list .item .main-content .content .addToCard:active {
-        transform: scale(0.95);
-        background-color: #1a1a1a;
+    .carousel .list .item .main-content .content .text-card::before {
+        left: 18px;
+        width: 36px;
+    }
+
+    .carousel .list .item .main-content .content .text-card h2 {
+        font-size: clamp(1.85rem, 6.8vw, 2.5rem);
+        margin-bottom: 2px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    .carousel .list .item .main-content .content .text-card .price {
+        font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+        margin: 4px 0 6px 0;
+    }
+
+
+    .carousel .list .item .main-content .content .addToCard {
+        padding: 5px 6px 5px 18px;
+        font-size: 0.8rem;
+        letter-spacing: 0.07em;
+        gap: 10px;
+        margin-top: 4px;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+    }
+
+    .carousel .list .item .main-content .content .addToCard .btn-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .carousel .list .item .main-content .content .addToCard .btn-icon svg {
+        width: 14px;
+        height: 14px;
     }
 
     /* La lata en Mobile: Flota siempre en z-index 15 (por encima de los fondos z-index 1-3) */

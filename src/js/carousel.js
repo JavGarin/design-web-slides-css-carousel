@@ -39,10 +39,21 @@ class CarouselEngine {
       item.innerHTML = `
         <div class="main-content" style="background-color: ${product.bgColor};">
           <div class="content">
-            <h2>${product.title}</h2>
-            <p class="price">${product.price}</p>
-            <p class="description">${product.description}</p>
-            <button class="addToCard">Comprar</button>
+            <div class="text-card">
+              <h2>${product.title}</h2>
+              <p class="price">${product.price}</p>
+              <p class="description">${product.description}</p>
+            </div>
+            <button class="addToCard" type="button" aria-label="Comprar ${product.title}">
+              <span class="btn-shine"></span>
+              <span class="btn-text">Comprar</span>
+              <span class="btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </button>
           </div>
         </div>
         <figure class="image">
