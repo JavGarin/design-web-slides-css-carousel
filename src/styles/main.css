@@ -171,8 +171,7 @@ header {
     flex-shrink: 0;
 }
 
-.nav-dropdown.is-open .dropdown-chevron,
-.nav-dropdown:hover .dropdown-chevron {
+.nav-dropdown.is-open .dropdown-chevron {
     transform: rotate(180deg);
     opacity: 1;
 }
@@ -210,30 +209,13 @@ header {
     transform: translateY(8px) scale(0.96);
 }
 
-.nav-dropdown[data-dropdown="coffee"]:hover .dropdown-menu,
-.nav-dropdown[data-dropdown="coffee"].is-open .dropdown-menu {
-    transform: translateY(0) scale(1);
-}
-
 .nav-dropdown[data-dropdown="about"] .dropdown-menu {
     left: auto;
     right: 0;
     transform: translateY(8px) scale(0.96);
 }
 
-.nav-dropdown[data-dropdown="about"]:hover .dropdown-menu,
-.nav-dropdown[data-dropdown="about"].is-open .dropdown-menu {
-    transform: translateY(0) scale(1);
-}
-
-@media (hover: hover) {
-    .nav-dropdown:hover .dropdown-menu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-    }
-}
-
+/* El menú se despliega EXCLUSIVAMENTE mediante el estado controlado .is-open */
 .nav-dropdown.is-open .dropdown-menu {
     opacity: 1;
     visibility: visible;
@@ -383,82 +365,68 @@ header {
 .carousel .list .item .main-content .content {
     position: relative;
     z-index: 5;
-    padding: clamp(165px, 18vh, 215px) 20px 40px clamp(40px, 6vw, 80px);
+    padding: clamp(105px, 11vh, 145px) 20px 40px clamp(40px, 6vw, 80px);
     max-width: 680px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.carousel .list .item .main-content .content h2 {
-    font-size: clamp(3rem, 5.8vw, 5rem);
-    font-family: var(--font-heading);
-    color: #fff;
-    line-height: 1.05;
-    margin-bottom: 8px;
+/* TARJETA MINIMALISTA DE ALTO IMPACTO (FROSTED OBSIDIAN GLASS) */
+.carousel .list .item .main-content .content .text-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 22px;
+    padding: clamp(22px, 2.5vw, 30px) clamp(26px, 3vw, 34px);
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(18, 10, 9, 0.65) 0%, rgba(10, 5, 5, 0.78) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
 }
 
-.carousel .list .item .main-content .content .price {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 3.8vw, 3rem);
-    margin: 15px 0;
-    color: #fff;
+.carousel .list .item .main-content .content .text-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
-.carousel .list .item .main-content .content .description {
-    font-size: clamp(0.92rem, 1.1vw, 1.05rem);
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.92);
+.carousel .list .item .main-content .content .text-card h2 {
+    font-size: clamp(2.8rem, 5.2vw, 4.6rem);
+    font-family: var(--font-heading);
+    color: #ffffff;
+    line-height: 1.04;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+}
+
+.carousel .list .item .main-content .content .text-card .price {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    color: #ffe6a3;
+    margin: 8px 0 12px 0;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.carousel .list .item .main-content .content .text-card .description {
+    font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+    line-height: 1.62;
+    color: rgba(255, 255, 255, 0.88);
     margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-/* CONTENEDOR MODERNO PARA TÍTULO + TEXTO CON BORDE DORADO LUMINOSO */
-.carousel .list .item .main-content .content .text-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border-radius: 24px;
-    padding: 28px 32px 24px 32px;
-    margin-bottom: 22px;
-    border: 1.5px solid transparent;
-    background: 
-        linear-gradient(135deg, rgba(26, 12, 10, 0.72) 0%, rgba(14, 6, 5, 0.85) 100%) padding-box,
-        linear-gradient(90deg, rgba(255, 215, 0, 0.12) 0%, #ffd700 30%, #fff8cc 50%, #ffd700 70%, rgba(255, 215, 0, 0.12) 100%) border-box;
-    background-size: 100% 100%, 300% 100%;
-    animation: goldBorderFlow 4.5s ease-in-out infinite alternate;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.3),
-                0 0 18px rgba(255, 215, 0, 0.12);
-}
-
-@keyframes goldBorderFlow {
-    0% {
-        background-position: 0% 0%, 0% 50%;
-    }
-    100% {
-        background-position: 0% 0%, 100% 50%;
-    }
-}
-
-.carousel .list .item .main-content .content .text-card h2 {
-    font-size: clamp(3rem, 5.8vw, 5rem);
-    font-family: var(--font-heading);
-    color: #fff;
-    line-height: 1.05;
-    margin-bottom: 4px;
-}
-
-.carousel .list .item .main-content .content .text-card .price {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 3.8vw, 3rem);
-    margin: 10px 0 14px 0;
-    color: #fff;
 }
 
 
@@ -618,7 +586,7 @@ header {
     margin-bottom: 35px;
     width: 80%;
     color: #fff;
-    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
 }
 
 /* 7. FLECHAS DE NAVEGACION (Z-INDEX: 30) */
@@ -799,16 +767,17 @@ header {
 }
 
 /* 10. MOBILE FIRST VIEWPORT (< 768px)
-   El fondo se expande por detras de la lata, sin taparla jamás */
-@media screen and (max-width: 767px) {
+   Diseño responsivo ultra pulido 2026 para todos los tamaños y proporciones */
+@media screen and (max-width: 767.98px) {
     header {
-        top: 12px;
-        min-height: 44px;
+        top: 8px;
+        min-height: 48px;
         height: auto;
-        padding: 0 14px;
+        padding: 0 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        z-index: 60;
     }
 
     .brand-logo {
@@ -834,25 +803,31 @@ header {
                 drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
     }
 
-    /* Navbar en Mobile: Alineado elegantemente a la derecha con proporción equilibrada */
+    /* Navbar en Mobile: Alineado a la derecha, actúa como ancla única para los dropdowns */
     .header-minimal-nav {
         position: relative;
         left: auto;
         transform: none;
         margin-left: auto;
-        font-size: 0.62rem;
-        padding: 3px 6px;
+        font-size: 0.65rem;
+        padding: 4px 8px;
         gap: 2px;
-        border-radius: 18px;
-        background: rgba(14, 8, 8, 0.55);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        background: rgba(14, 8, 8, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+        z-index: 65;
+    }
+
+    /* Anclaje unificado: evita que los dropdowns se corten por la izquierda al abrir Coffee/Menu */
+    .nav-dropdown {
+        position: static;
     }
 
     .nav-btn {
-        font-size: 0.62rem;
-        padding: 3px 6px;
-        gap: 2px;
+        font-size: 0.64rem;
+        padding: 4px 7px;
+        gap: 3px;
         letter-spacing: 0.03em;
         border-radius: 10px;
     }
@@ -869,7 +844,7 @@ header {
         opacity: 0.25;
     }
 
-    /* Dropdown en Mobile: Anclado dinámicamente al botón en el viewport */
+    /* Dropdown en Mobile: Posicionado de forma segura relativo al navbar completo */
     .dropdown-menu,
     .nav-dropdown[data-dropdown="coffee"] .dropdown-menu,
     .nav-dropdown[data-dropdown="menu"] .dropdown-menu,
@@ -879,14 +854,20 @@ header {
         right: 0;
         left: auto;
         transform: translateY(6px) scale(0.96);
-        min-width: 230px;
-        max-width: calc(100vw - 28px);
-        width: max-content;
+        width: min(280px, calc(100vw - 24px));
+        max-width: calc(100vw - 24px);
+        min-width: unset;
         padding: 8px;
         border-radius: 16px;
-        background: linear-gradient(135deg, rgba(26, 12, 10, 0.96) 0%, rgba(14, 6, 5, 0.98) 100%);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7),
-                    0 0 0 1px rgba(255, 126, 41, 0.15) inset;
+        background: linear-gradient(135deg, rgba(24, 10, 8, 0.98) 0%, rgba(14, 6, 5, 0.99) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.85),
+                    0 0 0 1px rgba(255, 126, 41, 0.2) inset;
+        z-index: 100;
+        max-height: calc(100dvh - 75px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
                     transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
                     visibility 0.22s;
@@ -934,38 +915,45 @@ header {
     }
 
     .carousel .list .item .main-content {
+        position: relative;
+        height: 100%;
+        height: 100dvh;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
         grid-template-columns: 1fr;
-        padding: 0 20px clamp(22px, 3.8vh, 32px) 20px;
+        padding: 0 clamp(14px, 3.8vw, 22px) clamp(22px, 3.5dvh, 32px);
     }
 
-    /* Halo centrado en la lata para mobile */
+    /* Halo centrado en el foco de la lata */
     .carousel .list .item .main-content::after {
-        background: radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.2) 0%, transparent 65%);
+        background: radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.28) 0%, transparent 68%);
     }
 
-    /* Animacion de fondo cinematografica en mobile:
-       Nace DETRÁS de la lata desde su centro exacto (50% 32%) con 1.3s sedoso */
+    /* Animacion de fondo cinematografica en mobile desde el foco de la lata */
     .carousel .list .item.active .main-content {
         animation: showContentMobile 1.3s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
     }
 
     @keyframes showContentMobile {
         from {
-            clip-path: circle(0% at 50% 32%);
+            clip-path: circle(0% at 50% 38%);
         }
         to {
-            clip-path: circle(150% at 50% 32%);
+            clip-path: circle(150% at 50% 38%);
         }
     }
 
-    /* Contenido tipografico que emerge coordinadamente con el fondo */
+    /* Contenido tipografico con ancho completo y presencia destacada */
     .carousel .list .item.active .main-content .content {
-        padding: 0 85px 0 0;
-        z-index: 15;
-        animation: mobileContentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        z-index: 25;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        animation: mobileContentFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
     }
 
     @keyframes mobileContentFadeIn {
@@ -973,87 +961,97 @@ header {
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .carousel .list .item .main-content .content h2 {
-        font-size: clamp(1.85rem, 6.8vw, 2.5rem);
-        margin-bottom: 2px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-    }
-
-    .carousel .list .item .main-content .content .price {
-        font-size: clamp(1.2rem, 4.5vw, 1.5rem);
-        margin: 4px 0 6px 0;
-    }
-
-    .carousel .list .item .main-content .content .description {
-        font-size: clamp(0.8rem, 2.6vw, 0.88rem);
-        line-height: 1.42;
-        margin-bottom: 0;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-    }
-
-    /* Text-card compacto en mobile con borde dorado fluido */
+    /* Text-card minimalista moderno — reposicionada un poco más arriba con diseño limpio */
     .carousel .list .item .main-content .content .text-card {
-        padding: 16px 18px 14px 18px;
-        border-radius: 16px;
-        margin-bottom: 14px;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35),
-                    0 0 14px rgba(255, 215, 0, 0.1);
+        width: 100%;
+        padding: clamp(11px, 3vw, 15px) clamp(14px, 3.8vw, 20px);
+        border-radius: 18px;
+        margin-bottom: clamp(10px, 2.2vw, 14px);
+        background: linear-gradient(135deg, rgba(18, 10, 9, 0.72) 0%, rgba(10, 5, 5, 0.82) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
     .carousel .list .item .main-content .content .text-card h2 {
-        font-size: clamp(1.85rem, 6.8vw, 2.5rem);
+        font-size: clamp(1.45rem, 5.6vw, 2.1rem);
+        line-height: 1.08;
         margin-bottom: 2px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     .carousel .list .item .main-content .content .text-card .price {
-        font-size: clamp(1.2rem, 4.5vw, 1.5rem);
-        margin: 4px 0 6px 0;
+        font-size: clamp(0.95rem, 3.6vw, 1.25rem);
+        color: #ffe6a3;
+        margin: 2px 0 5px 0;
+        font-weight: 700;
     }
 
+    /* Sin line-clamp: el texto completo siempre visible */
+    .carousel .list .item .main-content .content .text-card .description {
+        font-size: clamp(0.72rem, 2.2vw, 0.82rem);
+        line-height: 1.42;
+        margin-bottom: 0;
+        display: block;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        overflow: visible;
+        -webkit-box-orient: unset;
+        color: rgba(255, 255, 255, 0.9);
+    }
 
     .carousel .list .item .main-content .content .addToCard {
-        padding: 5px 6px 5px 18px;
-        font-size: 0.8rem;
-        letter-spacing: 0.07em;
-        gap: 10px;
-        margin-top: 4px;
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+        padding: 6px 8px 6px 20px;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        gap: 12px;
+        margin-top: 0;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38);
+        align-self: flex-start;
+        max-width: calc(100% - 92px);
     }
 
     .carousel .list .item .main-content .content .addToCard .btn-icon {
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
     }
 
     .carousel .list .item .main-content .content .addToCard .btn-icon svg {
-        width: 14px;
-        height: 14px;
+        width: 15px;
+        height: 15px;
     }
 
-    /* La lata en Mobile: Flota siempre en z-index 15 (por encima de los fondos z-index 1-3) */
+    /* La lata en Mobile: Grande y protagonista, balanceada con la tarjeta */
     .carousel .list .item .image {
-        top: 68px;
+        position: absolute;
+        top: 48px;
         left: 0;
         right: 0;
         width: 100%;
-        height: calc(100dvh - 305px);
-        min-height: 190px;
-        max-height: 46dvh;
-        padding: 6px 16px;
+        height: 58dvh;
+        min-height: 240px;
+        max-height: 460px;
+        padding: 0 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         pointer-events: none;
+        z-index: 15;
     }
 
     .carousel .list .item .image img {
-        height: 100%;
-        max-height: 330px;
+        height: 92%;
+        max-height: 460px;
         width: auto;
-        max-width: 80vw;
+        max-width: 92vw;
         object-fit: contain;
         margin-bottom: 0;
-        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.20))
-                drop-shadow(0 3px 6px rgba(0, 0, 0, 0.10));
+        filter: drop-shadow(0 22px 36px rgba(0, 0, 0, 0.42))
+                drop-shadow(0 8px 16px rgba(0, 0, 0, 0.22));
+        transform-origin: center center;
     }
 
     /* Animacion de presencia de la lata en mobile */
@@ -1064,7 +1062,7 @@ header {
     @keyframes mobileCanEnter {
         from {
             opacity: 0.85;
-            transform: scale(0.94);
+            transform: scale(0.92);
         }
         to {
             opacity: 1;
@@ -1088,28 +1086,32 @@ header {
         }
     }
 
-    /* Figcaption / Badge del producto con espacio holgado bajo el navbar */
+    /* Figcaption / Badge: junto a la base de la lata, no en el tope */
     .carousel .list .item.active .image figcaption {
         position: absolute;
-        top: 10px;
+        bottom: 6px;
+        top: auto;
         left: 50%;
         transform: translateX(-50%);
         font-family: var(--font-body);
-        font-size: 0.66rem;
-        letter-spacing: 0.06em;
+        font-size: clamp(0.66rem, 2.3vw, 0.76rem);
+        font-weight: 700;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        background: rgba(0, 0, 0, 0.35);
-        padding: 4px 12px;
+        color: #ffffff;
+        text-shadow: none;
+        background: rgba(14, 8, 8, 0.55);
+        padding: 5px 14px;
         border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
         white-space: nowrap;
         width: auto;
-        max-width: 90%;
+        max-width: 92%;
         margin-bottom: 0;
         z-index: 20;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
 
     .next .item .image figcaption,
@@ -1117,25 +1119,28 @@ header {
         animation: none !important;
     }
 
+    /* Flechas de navegación: Posición fija y ergonómica en esquina inferior derecha */
     .arrows {
-        bottom: clamp(16px, 3vh, 24px);
-        right: 16px;
+        bottom: clamp(14px, 3vh, 24px);
+        right: clamp(14px, 4vw, 24px);
         width: auto;
         display: flex !important;
         grid-template-columns: unset;
         grid-template-rows: unset;
         gap: 6px;
         padding-right: 0;
+        z-index: 35;
     }
 
     .arrows button {
-        width: 36px;
-        height: 36px;
-        font-size: 0.95rem;
-        background: rgba(0, 0, 0, 0.4);
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        background: rgba(14, 8, 8, 0.6);
         border: 1px solid rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
     }
 
     .arrows button:active {
@@ -1143,30 +1148,41 @@ header {
         background: rgba(255, 255, 255, 0.3);
     }
 
+    /* Ocultar el indicador de scroll / rueda de mouse en mobile responsivo */
     .scroll-indicator {
-        bottom: calc(clamp(16px, 3vh, 24px) + 44px);
-        right: 16px;
-        left: auto;
-        transform: none;
-        padding: 3px 8px;
-        font-size: 0.55rem;
-        gap: 4px;
-        border-radius: 14px;
+        display: none !important;
+    }
+}
+
+/* 11. AJUSTES ADICIONALES PARA DISPOSITIVOS COMPACTOS (ALTURA < 660px O LANDSCAPE) */
+@media screen and (max-width: 767.98px) and (max-height: 660px) {
+    .carousel .list .item .image {
+        top: 44px;
+        height: 50dvh;
+        min-height: 180px;
     }
 
-    .scroll-indicator:hover {
-        transform: translateY(-2px);
+    .carousel .list .item .image img {
+        max-height: 240px;
     }
 
-    .mouse-icon {
-        width: 10px;
-        height: 15px;
-        border-width: 1.2px;
-        padding-top: 2px;
+    .carousel .list .item .main-content .content .text-card {
+        padding: 8px 12px;
+        margin-bottom: 6px;
     }
 
-    .wheel-dot {
-        width: 2px;
-        height: 3px;
+    .carousel .list .item .main-content .content .text-card h2 {
+        font-size: 1.25rem;
+    }
+
+    .carousel .list .item .main-content .content .text-card .price {
+        font-size: 0.95rem;
+        margin: 1px 0 3px 0;
+    }
+
+    .carousel .list .item .main-content .content .text-card .description {
+        font-size: 0.72rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 }
