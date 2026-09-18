@@ -16,6 +16,16 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+button:focus, a:focus {
+    outline: none;
 }
 
 html, body {
@@ -430,113 +440,105 @@ header {
 }
 
 
-/* 2026 AWWWARDS HIGH-END CTA BUTTON (MAGNETIC OBSIDIAN & ELECTRIC ORB) */
+/* 5. BOTÓN CTA BRUTALISTA DE ENERGÍA (HIGH-VOLTAGE BRUTALISM) */
 .carousel .list .item .main-content .content .addToCard {
     position: relative;
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 7px 8px 7px 26px;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 18px 10px 22px;
     margin-top: 18px;
-    background: linear-gradient(135deg, rgba(42, 10, 6, 0.92) 0%, rgba(20, 4, 2, 0.97) 100%);
-    color: #ffffff;
+    background: #ffe600;
+    color: #000000;
     font-family: var(--font-body);
     font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.09em;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border-radius: 0px;
+    border: 2.5px solid #000000;
     cursor: pointer;
     align-self: flex-start;
     overflow: hidden;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35),
-                inset 0 1px 1px rgba(255, 255, 255, 0.4);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 4px 4px 0px #000000;
+    transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.12s ease;
     z-index: 10;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
 }
 
-/* Efecto de rayo de luz líquido / Liquid Shimmer sweep */
-.carousel .list .item .main-content .content .addToCard .btn-shine {
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.22) 50%,
-        transparent 100%
-    );
-    transform: translateX(-140%) skewX(-20deg);
-    transition: transform 0.8s ease;
-    pointer-events: none;
-    z-index: 1;
+.carousel .list .item .main-content .content .addToCard:focus {
+    outline: none;
+}
+
+.carousel .list .item .main-content .content .addToCard:focus-visible {
+    outline: 2px dashed #000000;
+    outline-offset: 3px;
 }
 
 .carousel .list .item .main-content .content .addToCard .btn-text {
     position: relative;
     z-index: 2;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #000000;
 }
 
-/* Icon Orb Capsule con gradiente eléctrico de energía */
+/* Badge / Icono de Rayo Eléctrico Brutalista */
 .carousel .list .item .main-content .content .addToCard .btn-icon {
     position: relative;
     z-index: 2;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff7e29 0%, #ff3b14 50%, #f42e61 100%);
-    color: #ffffff;
+    width: 26px;
+    height: 26px;
+    border-radius: 0px;
+    background: #000000;
+    color: #ffe600;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 16px rgba(255, 59, 20, 0.5),
-                inset 0 1px 1px rgba(255, 255, 255, 0.6);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                background 0.4s ease,
-                box-shadow 0.4s ease;
+    border: 1.5px solid #000000;
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background-color 0.18s ease,
+                color 0.18s ease;
+    flex-shrink: 0;
 }
 
 .carousel .list .item .main-content .content .addToCard .btn-icon svg {
     display: block;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    transition: transform 0.18s ease;
 }
 
-/* Interacción Hover: Elevación, Aura Luminosa y Proyección del Icono */
-.carousel .list .item .main-content .content .addToCard:hover {
-    transform: translateY(-3px) scale(1.03);
-    border-color: rgba(255, 255, 255, 0.48);
-    background: linear-gradient(135deg, rgba(58, 14, 8, 0.97) 0%, rgba(28, 6, 3, 0.99) 100%);
-    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.42),
-                0 0 28px rgba(255, 100, 30, 0.38),
-                inset 0 1px 2px rgba(255, 255, 255, 0.7);
+/* Hover exclusivamente en Desktop / Puntero Fino (evita hover pegajoso en táctil) */
+@media (hover: hover) and (pointer: fine) {
+    .carousel .list .item .main-content .content .addToCard:hover {
+        background: #fff01f;
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0px #000000;
+    }
+
+    .carousel .list .item .main-content .content .addToCard:hover .btn-icon {
+        background: #000000;
+        color: #ffffff;
+        transform: scale(1.12) rotate(-6deg);
+    }
 }
 
-.carousel .list .item .main-content .content .addToCard:hover .btn-shine {
-    transform: translateX(160%) skewX(-20deg);
-}
-
-.carousel .list .item .main-content .content .addToCard:hover .btn-icon {
-    transform: scale(1.1) rotate(6deg);
-    background: linear-gradient(135deg, #ff9436 0%, #ff2b00 100%);
-    box-shadow: 0 6px 24px rgba(255, 59, 20, 0.75),
-                0 0 16px rgba(255, 170, 50, 0.55),
-                inset 0 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-.carousel .list .item .main-content .content .addToCard:hover .btn-icon svg {
-    transform: translateX(3px);
-}
-
+/* Interacción Active / Tap Brutalista: Mecánica de pulsador industrial */
 .carousel .list .item .main-content .content .addToCard:active {
-    transform: translateY(0) scale(0.96);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3),
-                0 0 12px rgba(255, 100, 30, 0.25);
-    transition: all 0.1s ease;
+    transform: translate(3px, 3px) !important;
+    box-shadow: 1px 1px 0px #000000 !important;
+    background: #e6ce00 !important;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 /* 6. CAPA DE IMAGEN / LATAS EN PRIMER PLANO (Z-INDEX: 10 a 15)
@@ -1003,24 +1005,28 @@ header {
     }
 
     .carousel .list .item .main-content .content .addToCard {
-        padding: 6px 8px 6px 20px;
-        font-size: 0.85rem;
-        letter-spacing: 0.08em;
-        gap: 12px;
+        padding: 8px 14px 8px 16px;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        gap: 10px;
         margin-top: 0;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38);
+        border: 2px solid #000000;
+        box-shadow: 3px 3px 0px #000000;
         align-self: flex-start;
         max-width: calc(100% - 92px);
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .carousel .list .item .main-content .content .addToCard .btn-icon {
-        width: 36px;
-        height: 36px;
+        width: 22px;
+        height: 22px;
+        border: 1px solid #000000;
     }
 
     .carousel .list .item .main-content .content .addToCard .btn-icon svg {
-        width: 15px;
-        height: 15px;
+        width: 12px;
+        height: 12px;
     }
 
     /* La lata en Mobile: Grande y protagonista, balanceada con la tarjeta */

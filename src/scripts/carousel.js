@@ -45,12 +45,10 @@ class CarouselEngine {
               <p class="description">${product.description}</p>
             </div>
             <button class="addToCard" type="button" aria-label="Comprar ${product.title}">
-              <span class="btn-shine"></span>
               <span class="btn-text">Comprar</span>
-              <span class="btn-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
+              <span class="btn-icon" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/>
                 </svg>
               </span>
             </button>
