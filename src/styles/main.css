@@ -382,30 +382,28 @@ header {
     justify-content: center;
 }
 
-/* TARJETA MINIMALISTA DE ALTO IMPACTO (FROSTED OBSIDIAN GLASS) */
+/* TARJETA BRUTALISTA DE ALTO VOLTAJE (HIGH-VOLTAGE BRUTALISM) */
 .carousel .list .item .main-content .content .text-card {
     position: relative;
     display: flex;
     flex-direction: column;
-    border-radius: 22px;
-    padding: clamp(22px, 2.5vw, 30px) clamp(26px, 3vw, 34px);
+    border-radius: 0px;
+    padding: clamp(22px, 2.5vw, 32px) clamp(26px, 3vw, 36px);
     margin-bottom: 20px;
-    background: linear-gradient(135deg, rgba(18, 10, 9, 0.65) 0%, rgba(10, 5, 5, 0.78) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.4s ease,
-                box-shadow 0.4s ease;
+    background: rgba(14, 10, 10, 0.94);
+    border: 2.5px solid #000000;
+    box-shadow: 6px 6px 0px #000000;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.carousel .list .item .main-content .content .text-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.22);
-    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+@media (hover: hover) and (pointer: fine) {
+    .carousel .list .item .main-content .content .text-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 8px 8px 0px #000000;
+    }
 }
 
 .carousel .list .item .main-content .content .text-card h2 {
@@ -413,24 +411,33 @@ header {
     font-family: var(--font-heading);
     color: #ffffff;
     line-height: 1.04;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     letter-spacing: -0.01em;
-    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .carousel .list .item .main-content .content .text-card .price {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    color: #ffe6a3;
-    margin: 8px 0 12px 0;
-    letter-spacing: 0.02em;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: #ffe600;
+    color: #000000;
+    padding: 4px 14px;
+    margin: 6px 0 14px 0;
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    text-shadow: none;
 }
 
 .carousel .list .item .main-content .content .text-card .description {
     font-size: clamp(0.92rem, 1.05vw, 1.05rem);
-    line-height: 1.62;
-    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
     margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 5;
@@ -963,45 +970,53 @@ header {
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Text-card minimalista moderno — reposicionada un poco más arriba con diseño limpio */
+    /* Text-card brutalista industrial — adaptada a mobile */
     .carousel .list .item .main-content .content .text-card {
         width: 100%;
         padding: clamp(11px, 3vw, 15px) clamp(14px, 3.8vw, 20px);
-        border-radius: 18px;
+        border-radius: 0px;
         margin-bottom: clamp(10px, 2.2vw, 14px);
-        background: linear-gradient(135deg, rgba(18, 10, 9, 0.72) 0%, rgba(10, 5, 5, 0.82) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.13);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        background: rgba(14, 10, 10, 0.94);
+        border: 2px solid #000000;
+        box-shadow: 4px 4px 0px #000000;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
 
     .carousel .list .item .main-content .content .text-card h2 {
         font-size: clamp(1.45rem, 5.6vw, 2.1rem);
         line-height: 1.08;
-        margin-bottom: 2px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     }
 
     .carousel .list .item .main-content .content .text-card .price {
-        font-size: clamp(0.95rem, 3.6vw, 1.25rem);
-        color: #ffe6a3;
-        margin: 2px 0 5px 0;
-        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        align-self: flex-start;
+        font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+        font-weight: 800;
+        background: #ffe600;
+        color: #000000;
+        padding: 3px 10px;
+        margin: 3px 0 8px 0;
+        border: 1.5px solid #000000;
+        box-shadow: 2px 2px 0px #000000;
+        text-shadow: none;
     }
 
     /* Sin line-clamp: el texto completo siempre visible */
     .carousel .list .item .main-content .content .text-card .description {
         font-size: clamp(0.72rem, 2.2vw, 0.82rem);
-        line-height: 1.42;
+        line-height: 1.45;
         margin-bottom: 0;
         display: block;
         -webkit-line-clamp: unset;
         line-clamp: unset;
         overflow: visible;
         -webkit-box-orient: unset;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 0.92);
     }
 
     .carousel .list .item .main-content .content .addToCard {
@@ -1175,6 +1190,7 @@ header {
     .carousel .list .item .main-content .content .text-card {
         padding: 8px 12px;
         margin-bottom: 6px;
+        box-shadow: 3px 3px 0px #000000;
     }
 
     .carousel .list .item .main-content .content .text-card h2 {
@@ -1182,8 +1198,10 @@ header {
     }
 
     .carousel .list .item .main-content .content .text-card .price {
-        font-size: 0.95rem;
-        margin: 1px 0 3px 0;
+        font-size: 0.82rem;
+        padding: 2px 8px;
+        margin: 2px 0 6px 0;
+        box-shadow: 1.5px 1.5px 0px #000000;
     }
 
     .carousel .list .item .main-content .content .text-card .description {
